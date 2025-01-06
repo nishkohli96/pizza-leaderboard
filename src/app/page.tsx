@@ -16,13 +16,13 @@ export default function HomePage() {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="Basic button group">
-        <Button startIcon={<PersonIcon />} href='/user/add'>
+        <Button startIcon={<PersonIcon />} href='/users/add'>
           New User
         </Button>
         <Button startIcon={<LeaderboardIcon />}>
           Leaderboard
         </Button>
-        <Button startIcon={<ManageAccountsIcon />}>
+        <Button startIcon={<ManageAccountsIcon />} href='/users'>
           Manage Players
         </Button>
       </ButtonGroup>

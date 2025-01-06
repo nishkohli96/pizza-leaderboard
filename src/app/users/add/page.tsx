@@ -2,21 +2,20 @@
 
 import dynamic from 'next/dynamic';
 import { User } from '@/types';
-import { createUser } from '@/db/actions';
+import { addUser } from '@/db/actions';
 
 const UserForm = dynamic(() => import('@/components/user-form'), { ssr: false });
 
 export default function AddUserPage() {
-  async function onS(user: User) {
-    console.log('user: ', user);
-    await createUser(user);
+  async function createUser(user: User) {
+    const { error, data } = await addUser(user);
   }
 
   return (
     <>
       <UserForm
         title='Add User'
-        onSubmit={onS}
+        onSubmit={createUser}
       />
     </>
   );
