@@ -1,12 +1,12 @@
 'use server';
 
 import db from '@/db';
-import { DB_TABLES } from '@/constants';
-import { User } from '@/types';
+import { dbTables } from '@/constants';
+import { User, UserRow } from '@/types';
 
 export async function addUser(user: User) {
 	const supabase = await db.connect();
-	const { data, error } = await supabase.from(DB_TABLES.user).insert({
+	const { data, error } = await supabase.from(dbTables.user).insert({
     ...user,
     age: Number(user.age)
   });
@@ -17,6 +17,11 @@ export async function addUser(user: User) {
 
 export async function getUsers() {
 	const supabase = await db.connect();
-	const { data, error } = await supabase.from(DB_TABLES.user).select('*');
+	const {
+		data,
+		error 
+	} = await supabase
+    .from(dbTables.user)
+		.select('id, name, gender, coins');
 	return { data, error }
 }

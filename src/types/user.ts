@@ -16,3 +16,5 @@ export interface UserDetails extends User {
   created_at: Date | string;
   updated_at: Date | string;
 }
+
+export type UserRow = Pick<UserDetails, 'id' | 'name' | 'gender' | 'coins'>

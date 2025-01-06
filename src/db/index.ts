@@ -6,7 +6,7 @@
 import { cookies } from 'next/headers';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
-import { ENV_VARS } from '@/constants';
+import { envVars } from '@/constants';
 
 class PostgresDB {
   connection: SupabaseClient | null = null;
@@ -21,8 +21,8 @@ class PostgresDB {
     // Create a server's supabase client with newly configured cookie,
     // which could be used to maintain user's session
     this.connection = createServerClient(
-      ENV_VARS.supabase.url,
-      ENV_VARS.supabase.anonKey,
+      envVars.supabase.url,
+      envVars.supabase.anonKey,
       {
         cookies: {
           getAll() {

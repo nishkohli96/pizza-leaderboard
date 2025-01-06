@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { User } from '@/types';
 
-const UserForm = dynamic(() => import('@/components/user-form'), {
+const UserForm = dynamic(() => import('../components/UserForm'), {
   ssr: false
 });
 

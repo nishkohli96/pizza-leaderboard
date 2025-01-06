@@ -1,8 +1,8 @@
-const ENV_VARS = Object.freeze({
+const envVars = Object.freeze({
 	supabase: {
 		url: process.env.SUPABASE_URL ?? '',
 		anonKey: process.env.SUPABASE_ANON_KEY ?? ''
 	}
 });
 
-export default ENV_VARS;
+export default envVars;

@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic';
 import { User } from '@/types';
 import { addUser } from '@/db/actions';
 
-const UserForm = dynamic(() => import('@/components/user-form'), { ssr: false });
+const UserForm = dynamic(() => import('../components/UserForm'), {
+  ssr: false
+});
 
 export default function AddUserPage() {
   async function createUser(user: User) {

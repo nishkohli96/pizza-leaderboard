@@ -1,5 +1,5 @@
-const DB_TABLES = Object.freeze({
+const dbTables = Object.freeze({
 	user: 'users'
 });
 
-export default DB_TABLES;
+export default dbTables;
