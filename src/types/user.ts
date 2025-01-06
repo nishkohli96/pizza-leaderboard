@@ -13,4 +13,6 @@ export interface User {
 export interface UserDetails extends User {
   id: string;
   coins: number;
+  created_at: Date | string;
+  updated_at: Date | string;
 }
