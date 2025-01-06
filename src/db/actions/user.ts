@@ -25,3 +25,16 @@ export async function getUsers() {
     .select('id, name, gender, coins');
   return { data, error };
 }
+
+export async function getUserById(id: string) {
+  const supabase = await db.connect();
+  const {
+    data,
+    error,
+  } = await supabase
+    .from(dbTables.user)
+    .select('*')
+    .eq('id', id)
+    .single();
+  return { data, error };
+}
