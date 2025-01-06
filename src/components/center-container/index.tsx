@@ -15,5 +15,5 @@ export default function CenterContainer({ children }: LayoutProps) {
       {children}
     </Box>
   );
-};
+}
 

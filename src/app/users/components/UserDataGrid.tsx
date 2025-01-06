@@ -1,5 +1,7 @@
-import { Fragment, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { Fragment } from 'react';
+import { useRouter } from 'next/navigation'
 // import moment from 'moment';
 // import { toast } from 'react-toastify';
 import Link from '@mui/material/Link';
@@ -16,41 +18,41 @@ import {
 import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
 import { Gender, UserRow } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { GenderIcon, EditIcon, DeleteIcon } from '.';
+import { GenderIcon, EditIcon, DeleteIcon, RenderCoins } from '.';
 
 type UserRowDetails = UserRow & { sNo: number };
 
 type UserDataGridProps = {
   users: UserRow[];
   nbRecords: number;
-  sortColumn?: GridSortItem;
-  onSortChange: (newSort: GridSortItem) => void;
-  filterModel?: GridFilterModel;
-  onFilterChange: (newFilter: GridFilterModel) => void;
+  // sortColumn?: GridSortItem;
+  // onSortChange: (newSort: GridSortItem) => void;
+  // filterModel?: GridFilterModel;
+  // onFilterChange: (newFilter: GridFilterModel) => void;
   paginationModel: GridPaginationModel;
-  onPageChange: (newPageModel: GridPaginationModel) => void;
-  isFetchingData: boolean;
-  refetchData: () => void;
+  // onPageChange: (newPageModel: GridPaginationModel) => void;
+  // isFetchingData: boolean;
+  // refetchData: () => void;
 };
 
 const UserDataGrid = ({
   users,
   nbRecords,
-  sortColumn,
-  onSortChange,
-  filterModel,
-  onFilterChange,
+  // sortColumn,
+  // onSortChange,
+  // filterModel,
+  // onFilterChange,
   paginationModel,
-  onPageChange,
-  isFetchingData,
-  refetchData
+  // onPageChange,
+  // isFetchingData,
+  // refetchData
 }: UserDataGridProps) => {
-  // const navigate = useNavigate();
-  const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const router = useRouter();
+  // const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
+  // const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
   const handleCloseDeletePopUp = () => {
-    setDisplayDeletePopUp(false);
+    // setDisplayDeletePopUp(false);
   };
 
   const handlePersonDelete = async () => {
@@ -69,22 +71,19 @@ const UserDataGrid = ({
       type: 'number',
       sortable: false,
       resizable: false,
-      width: 60,
       align: 'center',
       disableColumnMenu: true,
-      filterable: false
+      filterable: false,
     },
     {
       field: 'name',
       headerName: 'Name',
-      minWidth: 150,
       hideable: false,
       type: 'string',
     },
     {
       field: 'gender',
       headerName: 'Gender',
-      width: 120,
       align: 'center',
       headerAlign: 'center',
       type: 'singleSelect',
@@ -97,38 +96,36 @@ const UserDataGrid = ({
     },
     {
       field: 'coins',
-      headerName: 'Website',
-      minWidth: 150,
+      headerName: 'Wallet',
       renderCell: params => (
-        <Link href={params.value} target="_blank" rel="noreferrer">
-          {params.value}
-        </Link>
+        // <CenterContainer>
+        <RenderCoins coins={params.value} />
+        // </CenterContainer>
       )
     },
     {
       field: 'actions',
       type: 'actions',
-      maxWidth: 70,
+      headerName: 'Actions',
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key="edit"
           icon={<EditIcon />}
           label="Edit"
           onClick={() => {
+            router.push(`/users/${params.row.id}`)
             // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
             //   state: params.row
             // });
           }}
-          showInMenu
         />,
         <GridActionsCellItem
           key="delete"
           icon={<DeleteIcon />}
           label="Delete"
-          showInMenu
           onClick={() => {
-            setSelectedItemId(params.row._id);
-            setDisplayDeletePopUp(true);
+            // setSelectedItemId(params.row._id);
+            // setDisplayDeletePopUp(true);
           }}
         />
       ]
@@ -158,19 +155,22 @@ const UserDataGrid = ({
   return (
     <Fragment>
       <DataTable
-        columns={peopleTableColumns}
+        columns={peopleTableColumns.map(col => ({
+          ...col,
+          flex: 1
+        }))}
         rows={userTableRows}
-        isFetchingData={isFetchingData}
+        // isFetchingData={isFetchingData}
         rowCount={nbRecords}
-        sortColumn={sortColumn}
-        onSortChange={onSortChange}
-        filterModel={filterModel}
-        onFilterChange={onFilterChange}
+        // sortColumn={sortColumn}
+        // onSortChange={onSortChange}
+        // filterModel={filterModel}
+        // onFilterChange={onFilterChange}
         handleRowClick={handleRowClick}
         paginationModel={paginationModel}
-        onPageChange={onPageChange}
+        // onPageChange={onPageChange}
       />
-      {displayDeletePopUp && (
+      {/* {displayDeletePopUp && (
         <ConfirmationDialog
           title={`Delete Person with Id ${selectedItemId} ?`}
           contentText="This will soft-delete the record..."
@@ -179,7 +179,7 @@ const UserDataGrid = ({
           onConfirm={handlePersonDelete}
           confirmBtnText="Confirm"
         />
-      )}
+      )} */}
     </Fragment>
   );
 };

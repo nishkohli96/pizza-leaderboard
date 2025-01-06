@@ -1,5 +1,5 @@
 const dbTables = Object.freeze({
-	user: 'users'
+  user: 'users'
 });
 
 export default dbTables;

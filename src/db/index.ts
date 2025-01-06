@@ -12,9 +12,9 @@ class PostgresDB {
   connection: SupabaseClient | null = null;
 
   async connect() {
-		if(this.connection) {
-			return this.connection;
-		}
+    if(this.connection) {
+      return this.connection;
+    }
 
     const cookieStore = await cookies();
 
@@ -31,8 +31,7 @@ class PostgresDB {
           setAll(cookiesToSet: { name: any; value: any; options: any }[]) {
             try {
               cookiesToSet.forEach(({ name, value, options }) =>
-                cookieStore.set(name, value, options)
-              );
+                cookieStore.set(name, value, options));
             } catch {
               // The `setAll` method was called from a Server Component.
               // This can be ignored if you have middleware refreshing
@@ -42,7 +41,7 @@ class PostgresDB {
         }
       }
     );
-		return this.connection;
+    return this.connection;
   }
 }
 

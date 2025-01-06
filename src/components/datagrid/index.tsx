@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DataGrid,
   GridToolbar,
@@ -16,32 +18,32 @@ import { CustomNoRowsOverlay, CustomPagination } from './components';
 type DataTableProps = {
   columns: GridColDef[];
   rows: GridRowsProp;
-  isFetchingData: boolean;
+  // isFetchingData: boolean;
   rowCount: number;
-  sortColumn?: GridSortItem;
-  onSortChange: (newSortCol: GridSortItem) => void;
+  // sortColumn?: GridSortItem;
+  // onSortChange: (newSortCol: GridSortItem) => void;
   filterModel?: GridFilterModel,
-  onFilterChange: (newFilter: GridFilterModel) => void;
+  // onFilterChange: (newFilter: GridFilterModel) => void;
   handleRowClick: (params: GridRowParams) => void;
   paginationModel: GridPaginationModel;
-  onPageChange: (model: GridPaginationModel) => void;
+  // onPageChange: (model: GridPaginationModel) => void;
 };
 
 export default function DataTable({
   columns,
   rows,
-  isFetchingData,
+  // isFetchingData,
   rowCount,
-  sortColumn,
-  onSortChange,
-  filterModel,
-  onFilterChange,
+  // sortColumn,
+  // onSortChange,
+  // filterModel,
+  // onFilterChange,
   handleRowClick,
   paginationModel,
-  onPageChange
+  // onPageChange
 }: DataTableProps) {
   const handleSortChange = (newSortModel: GridSortModel) => {
-    onSortChange(newSortModel[0]);
+    // onSortChange(newSortModel[0]);
   };
   return (
     <Box
@@ -57,7 +59,7 @@ export default function DataTable({
     >
       <DataGrid
         columns={columns}
-        rows={!isFetchingData ? rows : []}
+        rows={rows}
         slots={{
           toolbar: GridToolbar,
           noRowsOverlay: CustomNoRowsOverlay,
@@ -75,18 +77,18 @@ export default function DataTable({
             cursor: 'pointer'
           },
         }}
-        loading={isFetchingData}
+        // loading={isFetchingData}
         rowCount={rowCount}
-        sortModel={sortColumn ? [sortColumn] : undefined}
+        // sortModel={sortColumn ? [sortColumn] : undefined}
         onSortModelChange={handleSortChange}
         filterMode="server"
-        filterModel={filterModel}
-        onFilterModelChange={onFilterChange}
+        // filterModel={filterModel}
+        // onFilterModelChange={onFilterChange}
         onRowClick={handleRowClick}
         paginationMode="server"
         paginationModel={paginationModel}
         pageSizeOptions={dataTableConfig.paginationOptions}
-        onPaginationModelChange={onPageChange}
+        // onPaginationModelChange={onPageChange}
         disableRowSelectionOnClick
       />
     </Box>

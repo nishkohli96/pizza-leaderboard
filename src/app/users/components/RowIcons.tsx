@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -5,6 +6,7 @@ import TransgenderIcon from '@mui/icons-material/Transgender';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MuiEditIcon from '@mui/icons-material/Edit';
 import MuiDeleteIcon from '@mui/icons-material/Delete';
+import CircleIcon from '@mui/icons-material/Circle';
 import { Gender } from '@/types';
 
 type GenderIconProps = {
@@ -34,8 +36,31 @@ export const GenderIcon = ({ gender }: GenderIconProps) => {
   }
 };
 
-export const ViewIcon = () => <VisibilityIcon fontSize="small" />;
+export const ViewIcon = () => (
+  <Tooltip title="View User">
+    <VisibilityIcon fontSize="small" />
+  </Tooltip>
+);
 
-export const EditIcon = () => <MuiEditIcon fontSize="small" />;
+export const EditIcon = () => (
+  <Tooltip title="Edit User">
+    <MuiEditIcon fontSize="small" />
+  </Tooltip>
+);
 
-export const DeleteIcon = () => <MuiDeleteIcon fontSize="small" />;
+export const DeleteIcon = () => (
+  <Tooltip title="Delete User">
+    <MuiDeleteIcon fontSize="small" />
+  </Tooltip>
+);
+
+export const RenderCoins = (
+  { coins }: { coins: number }
+) => {
+  return (
+    <Fragment>
+      <CircleIcon sx={{ color: '#CC9901', fontSize: '20px', mr: '8px' }} />
+      {coins}
+    </Fragment>
+  );
+};

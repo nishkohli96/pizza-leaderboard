@@ -14,7 +14,7 @@ export default function EditUserPage() {
 
   return (
     <>
-      <UserForm title="Add User" onSubmit={onS} />
+      <UserForm title="Edit User" onSubmit={onS} />
     </>
   );
 }

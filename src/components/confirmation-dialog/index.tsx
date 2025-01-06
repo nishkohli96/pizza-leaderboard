@@ -66,4 +66,4 @@ export default function ConfirmationDialog({
       </Dialog>
     </Fragment>
   );
-};
+}

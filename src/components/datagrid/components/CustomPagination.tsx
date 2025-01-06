@@ -28,7 +28,7 @@ function Pagination({
       }}
     />
   );
-};
+}
 
 const CustomPagination = (
   props: Partial<TablePaginationProps> & PaginationPropsOverrides
