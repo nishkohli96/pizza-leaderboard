@@ -24,7 +24,8 @@ export async function getUsers() {
     error
   } = await supabase
     .from(dbTables.user)
-    .select('id, name, gender, coins');
+    .select('id, name, gender, coins')
+    .limit(10);
   return { data, error };
 }
 
