@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 // import moment from 'moment';
 // import { toast } from 'react-toastify';
 import Link from '@mui/material/Link';
@@ -113,7 +113,7 @@ const UserDataGrid = ({
           icon={<EditIcon />}
           label="Edit"
           onClick={() => {
-            router.push(`/users/${params.row.id}`)
+            router.push(`/users/${params.row.id}`);
             // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
             //   state: params.row
             // });

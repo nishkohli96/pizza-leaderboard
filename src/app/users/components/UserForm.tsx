@@ -29,7 +29,7 @@ export default function UserForm({
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid size={12}>
-          <Typography variant='h3' color='primary'>
+          <Typography variant='h4' color='primary'>
             {title}
           </Typography>
         </Grid>

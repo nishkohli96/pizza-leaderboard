@@ -2,6 +2,7 @@
 
 import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import { redirect } from 'next/navigation';
 import { User } from '@/types';
 import { addUser } from '@/db/actions';
 
@@ -16,7 +17,10 @@ const UserForm = dynamic(() => import('../components/UserForm'), {
 
 export default function AddUserPage() {
   async function createUser(user: User) {
-    const { error, data } = await addUser(user);
+    const success = await addUser(user);
+    if(success) {
+      redirect('/users');
+    }
   }
 
   return (
