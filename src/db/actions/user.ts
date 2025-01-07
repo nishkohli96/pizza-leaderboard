@@ -17,18 +17,6 @@ export async function addUser(user: User) {
   }
 }
 
-export async function getUsers() {
-  const supabase = await db.connect();
-  const {
-    data,
-    error
-  } = await supabase
-    .from(dbTables.user)
-    .select('id, name, gender, coins')
-    .limit(10);
-  return { data, error };
-}
-
 export async function getUserById(id: string) {
   const supabase = await db.connect();
   const {

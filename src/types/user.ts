@@ -18,3 +18,9 @@ export interface UserDetails extends User {
 }
 
 export type UserRow = Pick<UserDetails, 'id' | 'name' | 'gender' | 'coins'>
+
+export type UserListQueryParams = {
+  page?: number;
+  limit?: number;
+  perPage?: number;
+}
