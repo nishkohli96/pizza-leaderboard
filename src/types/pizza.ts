@@ -1,5 +1,6 @@
 export interface Pizza {
 	name: string;
+	slug: string;
 	description: string;
 	price: number;
 }

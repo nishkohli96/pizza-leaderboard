@@ -1,5 +1,6 @@
 import axios from 'axios';
+import { envVars } from '@/constants';
 
 export const axiosApi = axios.create({
-  baseURL: 'http://localhost:3000/api'
+  baseURL: `${envVars.hostURL}/api`
 });

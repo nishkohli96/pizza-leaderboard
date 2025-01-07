@@ -18,7 +18,7 @@ import {
 import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
 import { Gender, UserRow } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { GenderIcon, EditIcon, DeleteIcon, RenderCoins } from '.';
+import * as RowIcons from '.';
 
 type UserRowDetails = UserRow & { sNo: number };
 
@@ -66,12 +66,13 @@ const UserDataGrid = ({
 
   const peopleTableColumns: GridColDef[] = [
     {
-      field: 'id',
+      field: 'sNo',
       headerName: 'S. No.',
       type: 'number',
       sortable: false,
       resizable: false,
       align: 'center',
+      headerAlign: 'center',
       disableColumnMenu: true,
       filterable: false,
     },
@@ -90,7 +91,7 @@ const UserDataGrid = ({
       valueOptions: Object.values(Gender),
       renderCell: params => (
         <CenterContainer>
-          <GenderIcon gender={params.value} />
+          <RowIcons.GenderIcon gender={params.value} />
         </CenterContainer>
       )
     },
@@ -98,19 +99,29 @@ const UserDataGrid = ({
       field: 'coins',
       headerName: 'Wallet',
       renderCell: params => (
-        // <CenterContainer>
-        <RenderCoins coins={params.value} />
-        // </CenterContainer>
+        <RowIcons.RenderCoins coins={params.value} />
       )
     },
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
+      headerAlign: 'left',
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
+          key="buyPizza"
+          icon={<RowIcons.PizzaIcon />}
+          label="Buy Pizza"
+          // onClick={() => {
+          //   router.push(`/users/${params.row.id}`);
+          //   // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
+          //   //   state: params.row
+          //   // });
+          // }}
+        />,
+        <GridActionsCellItem
           key="edit"
-          icon={<EditIcon />}
+          icon={<RowIcons.EditIcon />}
           label="Edit"
           onClick={() => {
             router.push(`/users/${params.row.id}`);
@@ -118,15 +129,17 @@ const UserDataGrid = ({
             //   state: params.row
             // });
           }}
+          showInMenu
         />,
         <GridActionsCellItem
           key="delete"
-          icon={<DeleteIcon />}
+          icon={<RowIcons.DeleteIcon />}
           label="Delete"
           onClick={() => {
             // setSelectedItemId(params.row._id);
             // setDisplayDeletePopUp(true);
           }}
+          showInMenu
         />
       ]
     }

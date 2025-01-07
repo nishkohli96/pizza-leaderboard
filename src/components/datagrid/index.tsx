@@ -3,7 +3,6 @@
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import {
   DataGrid,
-  GridToolbar,
   GridColDef,
   GridRowsProp,
   GridSortItem,
@@ -53,10 +52,10 @@ export default function DataTable({
 
   function handleOnPageChange(pagination: GridPaginationModel) {
     const newPage = pagination.page + 1;
-    const perPage = pagination.pageSize;
+    const limit = pagination.pageSize;
     const params = new URLSearchParams(searchParams);
     params.set('page', newPage.toString());
-    params.set('perPage', perPage.toString());
+    params.set('limit', limit.toString());
     replace(`${pathname}?${params.toString()}`);
   }
 
@@ -76,7 +75,7 @@ export default function DataTable({
         columns={columns}
         rows={rows}
         slots={{
-          toolbar: GridToolbar,
+          // toolbar: GridToolbar,
           noRowsOverlay: CustomNoRowsOverlay,
           pagination: CustomPagination
         }}

@@ -22,6 +22,7 @@ export default async function UsersListPage({
   searchParams
 }: SearchParams<UserListQueryParams>) {
   const queryParams = await searchParams;
+  console.log('queryParams: ', queryParams);
   const response = await axiosApi.get<GetUsersResponse>('/users', {
     params: queryParams
   });

@@ -7,6 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import MuiEditIcon from '@mui/icons-material/Edit';
 import MuiDeleteIcon from '@mui/icons-material/Delete';
 import CircleIcon from '@mui/icons-material/Circle';
+import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 import { Gender } from '@/types';
 
 type GenderIconProps = {
@@ -64,3 +65,9 @@ export const RenderCoins = (
     </Fragment>
   );
 };
+
+export const PizzaIcon = () => (
+  <Tooltip title="Buy Pizza">
+    <LocalPizzaIcon fontSize="small" />
+  </Tooltip>
+);
