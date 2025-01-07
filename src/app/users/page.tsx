@@ -3,19 +3,15 @@ import Grid from '@mui/material/Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { axiosApi } from '@/api';
-import { dataTableConfig } from '@/constants';
 import {
-  APIResponse,
+  ResponseBody,
   SearchParams,
-  UserRow,
-  UserListQueryParams
+  UserListQueryParams,
+  UsersListResponse,
 } from '@/types';
 import { UserDataGrid } from './components';
 
-type UsersListResponse = APIResponse<{
-	records: UserRow[];
-  nbRecords: number;
-}>;
+type GetUsersResponse = ResponseBody<UsersListResponse>;
 
 export const metadata: Metadata = {
   title: 'Users List',
@@ -26,11 +22,11 @@ export default async function UsersListPage({
   searchParams
 }: SearchParams<UserListQueryParams>) {
   const queryParams = await searchParams;
-  const response = await axiosApi.get<UsersListResponse>('/users', {
+  const response = await axiosApi.get<GetUsersResponse>('/users', {
     params: queryParams
   });
-  const usersList = response.data.data?.records ?? [];
-  const nbRecords = response.data.data?.nbRecords ?? 0;
+  const usersListData = response.data.data!;
+  const { page, perPage, nbRecords, records } = usersListData;
 
   return (
     <Grid container spacing={2}>
@@ -42,11 +38,11 @@ export default async function UsersListPage({
       <Grid size={12}>
         <Container maxWidth="md">
           <UserDataGrid
-            users={usersList}
-            nbRecords={10}
+            users={records}
+            nbRecords={nbRecords}
             paginationModel={{
-              page: 0,
-              pageSize: dataTableConfig.defaultPageSize
+              page: page - 1,
+              pageSize: perPage
             }}
           />
         </Container>

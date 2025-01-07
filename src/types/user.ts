@@ -24,3 +24,10 @@ export type UserListQueryParams = {
   limit?: number;
   perPage?: number;
 }
+
+export type UsersListResponse = {
+  page: number;
+  perPage: number;
+  nbRecords: number;
+	records: UserRow[];
+};

@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import {
   DataGrid,
   GridToolbar,
@@ -42,9 +43,23 @@ export default function DataTable({
   paginationModel,
   // onPageChange
 }: DataTableProps) {
-  const handleSortChange = (newSortModel: GridSortModel) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  function handleSortChange(newSortModel: GridSortModel) {
     // onSortChange(newSortModel[0]);
   };
+
+  function handleOnPageChange(pagination: GridPaginationModel) {
+    const newPage = pagination.page + 1;
+    const perPage = pagination.pageSize;
+    const params = new URLSearchParams(searchParams);
+    params.set('page', newPage.toString());
+    params.set('perPage', perPage.toString());
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <Box
       sx={{
@@ -88,7 +103,7 @@ export default function DataTable({
         paginationMode="server"
         paginationModel={paginationModel}
         pageSizeOptions={dataTableConfig.paginationOptions}
-        // onPaginationModelChange={onPageChange}
+        onPaginationModelChange={handleOnPageChange}
         disableRowSelectionOnClick
       />
     </Box>
