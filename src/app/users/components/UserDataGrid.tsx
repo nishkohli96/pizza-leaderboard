@@ -1,24 +1,18 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { useRouter } from 'next/navigation';
-// import moment from 'moment';
-// import { toast } from 'react-toastify';
-import Link from '@mui/material/Link';
 import {
   GridActionsCellItem,
   GridColDef,
-  GridFilterModel,
   GridPaginationModel,
   GridRowParams,
   GridRowsProp,
-  GridSortItem,
 } from '@mui/x-data-grid';
-// import { deletePerson } from 'api/services';
-import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
+import { DataTable, CenterContainer } from '@/components';
 import { Gender, UserRow } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import * as RowIcons from '.';
+import { PizzaList, RowIcons } from '.';
 
 type UserRowDetails = UserRow & { sNo: number };
 
@@ -48,21 +42,22 @@ const UserDataGrid = ({
   // refetchData
 }: UserDataGridProps) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   // const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
   // const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
-  const handleCloseDeletePopUp = () => {
-    // setDisplayDeletePopUp(false);
-  };
+  // const handleCloseDeletePopUp = () => {
+  //   // setDisplayDeletePopUp(false);
+  // };
 
-  const handlePersonDelete = async () => {
-    // const isDeleted = await deletePerson(selectedItemId ?? '');
-    // if(isDeleted) {
-    //   // toast.success('Person record deleted!');
-    //   refetchData();
-    // }
-    handleCloseDeletePopUp();
-  };
+  // const handlePersonDelete = async () => {
+  //   // const isDeleted = await deletePerson(selectedItemId ?? '');
+  //   // if(isDeleted) {
+  //   //   // toast.success('Person record deleted!');
+  //   //   refetchData();
+  //   // }
+  //   handleCloseDeletePopUp();
+  // };
 
   const peopleTableColumns: GridColDef[] = [
     {
@@ -112,6 +107,7 @@ const UserDataGrid = ({
           key="buyPizza"
           icon={<RowIcons.PizzaIcon />}
           label="Buy Pizza"
+          onClick={() => setOpen(true)}
           // onClick={() => {
           //   router.push(`/users/${params.row.id}`);
           //   // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
@@ -159,12 +155,6 @@ const UserDataGrid = ({
     })
   );
 
-  const handleRowClick = (params: GridRowParams) => {
-    // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.view}`, {
-    //   state: params.row
-    // });
-  };
-
   return (
     <Fragment>
       <DataTable
@@ -179,10 +169,15 @@ const UserDataGrid = ({
         // onSortChange={onSortChange}
         // filterModel={filterModel}
         // onFilterChange={onFilterChange}
-        handleRowClick={handleRowClick}
         paginationModel={paginationModel}
         // onPageChange={onPageChange}
       />
+      {open && (
+        <PizzaList
+          open={open}
+          handleClose={() => setOpen(false)}
+        />
+      )}
       {/* {displayDeletePopUp && (
         <ConfirmationDialog
           title={`Delete Person with Id ${selectedItemId} ?`}

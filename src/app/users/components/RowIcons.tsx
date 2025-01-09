@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -59,10 +59,13 @@ export const RenderCoins = (
   { coins }: { coins: number }
 ) => {
   return (
-    <Fragment>
+    <Box 
+      display="flex" 
+      alignItems="center" 
+    >
       <CircleIcon sx={{ color: '#CC9901', fontSize: '20px', mr: '8px' }} />
       {coins}
-    </Fragment>
+    </Box>
   );
 };
 

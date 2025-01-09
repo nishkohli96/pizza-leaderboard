@@ -16,8 +16,7 @@ export default async function EditUserPage({
   params
 }: EditUserPageProps) {
   const userId = (await params).id;
-  const { data, error } = await getUserById(userId);
-  console.log('data: ', data);
+  const { data } = await getUserById(userId);
 
   return (
     <EditUserForm user={data as User} userId={userId}/>

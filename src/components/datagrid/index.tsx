@@ -5,11 +5,9 @@ import {
   DataGrid,
   GridColDef,
   GridRowsProp,
-  GridSortItem,
-  GridSortModel,
+  // GridSortModel,
   GridPaginationModel,
   GridFilterModel,
-  GridRowParams
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from '@/constants';
@@ -24,7 +22,6 @@ type DataTableProps = {
   // onSortChange: (newSortCol: GridSortItem) => void;
   filterModel?: GridFilterModel,
   // onFilterChange: (newFilter: GridFilterModel) => void;
-  handleRowClick: (params: GridRowParams) => void;
   paginationModel: GridPaginationModel;
   // onPageChange: (model: GridPaginationModel) => void;
 };
@@ -38,7 +35,6 @@ export default function DataTable({
   // onSortChange,
   // filterModel,
   // onFilterChange,
-  handleRowClick,
   paginationModel,
   // onPageChange
 }: DataTableProps) {
@@ -46,9 +42,9 @@ export default function DataTable({
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSortChange(newSortModel: GridSortModel) {
-    // onSortChange(newSortModel[0]);
-  };
+  // function handleSortChange(newSortModel: GridSortModel) {
+  //   // onSortChange(newSortModel[0]);
+  // }
 
   function handleOnPageChange(pagination: GridPaginationModel) {
     const newPage = pagination.page + 1;
@@ -94,11 +90,10 @@ export default function DataTable({
         // loading={isFetchingData}
         rowCount={rowCount}
         // sortModel={sortColumn ? [sortColumn] : undefined}
-        onSortModelChange={handleSortChange}
+        // onSortModelChange={handleSortChange}
         filterMode="server"
         // filterModel={filterModel}
         // onFilterModelChange={onFilterChange}
-        onRowClick={handleRowClick}
         paginationMode="server"
         paginationModel={paginationModel}
         pageSizeOptions={dataTableConfig.paginationOptions}

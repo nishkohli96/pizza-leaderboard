@@ -42,7 +42,7 @@ export async function updateUser(id: string, userDetails: User) {
       .eq('id', id)
       .single();
     return true;
-  } catch(error) {
+  } catch {
     return false;
   }
 }

@@ -1,6 +1,6 @@
-name,slug,description,price
-Margherita,margherita,The Classic Cheese Pizza we all know and love,20
-Paneer Makhani,paneer-makhani,Makhani Panner with Veggies,30
-Veggie Paradise,veggie-paradise,Slices of exotic vegetables on a bed of cheese,25
-Tandoori Chicken,tandoori-chicken,Barbequeued Chicken and corn,30
-Pepperoni,pepperoni,Fine Slices of succulent meat,27
+name,slug,price,description
+Margherita,margherita,20,"A classic pizza with a simple yet delicious combination of fresh mozzarella, tangy tomato sauce, and a sprinkle of basil."
+Paneer Makhani,paneer-makhani,30,"A rich and creamy pizza topped with spiced paneer cubes in a flavorful makhani sauce."
+Veggie Paradise,veggie-paradise,25,"A colorful pizza loaded with a variety of fresh vegetables like bell peppers, corns, and olives."
+Tandoori Chicken,tandoori-chicken,30,"A smoky and spicy pizza featuring tandoori-marinated chicken pieces, grilled to perfection."
+Pepperoni,pepperoni,27,"A savory pizza topped with crispy, flavorful pepperoni slices over a rich tomato sauce and melted cheese."

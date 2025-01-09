@@ -29,5 +29,5 @@ export type UsersListResponse = {
   page: number;
   perPage: number;
   nbRecords: number;
-	records: UserRow[];
+  records: UserRow[];
 };

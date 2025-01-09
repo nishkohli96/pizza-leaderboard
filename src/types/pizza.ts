@@ -1,10 +1,14 @@
 export interface Pizza {
-	name: string;
-	slug: string;
-	description: string;
-	price: number;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
 }
 
 export interface PizzaDetails extends Pizza {
-	id: number;
+  id: number;
 }
+
+export type PizzaListResponse = {
+  records: Pizza[];
+};
