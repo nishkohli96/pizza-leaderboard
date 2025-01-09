@@ -59,9 +59,9 @@ export const RenderCoins = (
   { coins }: { coins: number }
 ) => {
   return (
-    <Box 
-      display="flex" 
-      alignItems="center" 
+    <Box
+      display="flex"
+      alignItems="center"
     >
       <CircleIcon sx={{ color: '#CC9901', fontSize: '20px', mr: '8px' }} />
       {coins}

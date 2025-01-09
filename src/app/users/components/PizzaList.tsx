@@ -42,8 +42,8 @@ export default function PizzaList({ open, handleClose }: PizzaListProps) {
         }}
       >
         <Grid container spacing={2} maxWidth="md">
-          {pizzas.map((pizza) => (
-            <Grid size={12} key={pizza.slug} sx={{ mb: '20px'}}>
+          {pizzas.map(pizza => (
+            <Grid size={12} key={pizza.slug} sx={{ mb: '20px' }}>
               <PizzaDetails pizza={pizza} />
             </Grid>
           ))}

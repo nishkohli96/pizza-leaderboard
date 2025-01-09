@@ -4,33 +4,27 @@ import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { axiosApi } from '@/axios';
-import { User, ResponseBody } from '@/types';
+import { ResponseBody, User } from '@/types';
 
 const UserForm = dynamic(() => import('../components/UserForm'), {
   ssr: false
 });
 
-type EditUserFormProps = {
-  user: User;
-  userId: string;
-}
-
-export default function EditUserForm({
-  user,
-  userId
-}: EditUserFormProps) {
-
+export default function AddUserForm() {
   async function handleUserUpdate(user: User) {
-    const response = await axiosApi.patch<ResponseBody>(`/users/${userId}`, user);
-    if(response.data.success) {
+    const response = await axiosApi.post<ResponseBody>(
+      '/users/add',
+      user
+    );
+    const success = response.data.success;
+    if (success) {
       toast.success(response.data.message);
       redirect('/users');
     }
   }
   return (
     <UserForm
-      title="Edit User"
-      initialData={user}
+      title="Create User"
       onSubmit={handleUserUpdate}
     />
   );

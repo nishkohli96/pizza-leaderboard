@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Grid from '@mui/material/Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { axiosApi } from '@/api';
+import { axiosApi } from '@/axios';
 import {
   ResponseBody,
   SearchParams,

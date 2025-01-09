@@ -28,16 +28,19 @@ export async function GET(): APIResponse<PizzaListResponse> {
     return NextResponse.json({
       success: true,
       statusCode: 200,
+      message: 'List of pizzas.',
       data: {
         records: data ?? []
-      }
+      },
+      error: null
     });
   } catch {
     return NextResponse.json({
       success: false,
       statusCode: 500,
+      message: 'Unable to fetch list of pizzas.',
       data: null,
-      error: 'Unable to fetch users list'
+      error: 'Unable to fetch list of pizzas.'
     });
   }
 }

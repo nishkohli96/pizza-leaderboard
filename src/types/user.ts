@@ -15,6 +15,7 @@ export interface UserDetails extends User {
   coins: number;
   created_at: Date;
   updated_at: Date;
+  isDeleted: boolean;
 }
 
 export type UserRow = Pick<UserDetails, 'id' | 'name' | 'gender' | 'coins'>

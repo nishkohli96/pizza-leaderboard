@@ -9,8 +9,10 @@ import {
   GridRowParams,
   GridRowsProp,
 } from '@mui/x-data-grid';
-import { DataTable, CenterContainer } from '@/components';
-import { Gender, UserRow } from '@/types';
+import { toast } from 'react-toastify';
+import { axiosApi } from '@/axios';
+import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
+import { Gender, UserRow, ResponseBody } from '@/types';
 import { getUserRecordIndex } from '@/utils';
 import { PizzaList, RowIcons } from '.';
 
@@ -43,21 +45,22 @@ const UserDataGrid = ({
 }: UserDataGridProps) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  // const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
-  // const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
-  // const handleCloseDeletePopUp = () => {
-  //   // setDisplayDeletePopUp(false);
-  // };
+  const handleCloseDeletePopUp = () => setDisplayDeletePopUp(false);
 
-  // const handlePersonDelete = async () => {
-  //   // const isDeleted = await deletePerson(selectedItemId ?? '');
-  //   // if(isDeleted) {
-  //   //   // toast.success('Person record deleted!');
-  //   //   refetchData();
-  //   // }
-  //   handleCloseDeletePopUp();
-  // };
+  const handlePersonDelete = async () => {
+    const response = await axiosApi.delete<ResponseBody>(
+      `/users/${selectedItemId}`
+    );
+    const isDeleted = response.data.success;
+    if(isDeleted) {
+      toast.success(response.data.message);
+      setSelectedItemId(null);
+    }
+    handleCloseDeletePopUp();
+  };
 
   const peopleTableColumns: GridColDef[] = [
     {
@@ -108,23 +111,12 @@ const UserDataGrid = ({
           icon={<RowIcons.PizzaIcon />}
           label="Buy Pizza"
           onClick={() => setOpen(true)}
-          // onClick={() => {
-          //   router.push(`/users/${params.row.id}`);
-          //   // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
-          //   //   state: params.row
-          //   // });
-          // }}
         />,
         <GridActionsCellItem
           key="edit"
           icon={<RowIcons.EditIcon />}
           label="Edit"
-          onClick={() => {
-            router.push(`/users/${params.row.id}`);
-            // navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
-            //   state: params.row
-            // });
-          }}
+          onClick={() => router.push(`/users/${params.row.id}`)}
           showInMenu
         />,
         <GridActionsCellItem
@@ -132,8 +124,8 @@ const UserDataGrid = ({
           icon={<RowIcons.DeleteIcon />}
           label="Delete"
           onClick={() => {
-            // setSelectedItemId(params.row._id);
-            // setDisplayDeletePopUp(true);
+            setSelectedItemId(params.row.id);
+            setDisplayDeletePopUp(true);
           }}
           showInMenu
         />
@@ -178,16 +170,16 @@ const UserDataGrid = ({
           handleClose={() => setOpen(false)}
         />
       )}
-      {/* {displayDeletePopUp && (
+      {displayDeletePopUp && (
         <ConfirmationDialog
           title={`Delete Person with Id ${selectedItemId} ?`}
-          contentText="This will soft-delete the record..."
+          contentText="This will soft-delete the record."
           open={displayDeletePopUp}
           onClose={handleCloseDeletePopUp}
           onConfirm={handlePersonDelete}
           confirmBtnText="Confirm"
         />
-      )} */}
+      )}
     </Fragment>
   );
 };

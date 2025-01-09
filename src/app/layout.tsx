@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { ToastContainer } from 'react-toastify';
 import { AppThemeProvider } from '@/theme';
 import { AppBar } from '@/components';
+import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 
 const geistSans = Geist({
@@ -38,6 +40,7 @@ export default function RootLayout({
           <AppThemeProvider>
             <AppBar />
             {children}
+            <ToastContainer />
           </AppThemeProvider>
         </AppRouterCacheProvider>
       </body>
