@@ -104,14 +104,20 @@ const UserDataGrid = ({
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      headerAlign: 'left',
+      headerAlign: 'center',
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key="buyPizza"
           icon={<RowIcons.PizzaIcon />}
           label="Buy Pizza"
           onClick={() => setOpen(true)}
-        />,
+        />,  
+        <GridActionsCellItem
+        key="buyPizza"
+        icon={<RowIcons.LogPizzaIcon />}
+        label="Log Pizza"
+        onClick={() => setOpen(true)}
+      />,
         <GridActionsCellItem
           key="edit"
           icon={<RowIcons.EditIcon />}

@@ -5,5 +5,6 @@ export interface Order {
 
 export interface OrderDetails extends Order {
   id: number;
+  isLogged: boolean;
   created_at: Date;
 }

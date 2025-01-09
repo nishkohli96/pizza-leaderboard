@@ -31,9 +31,9 @@ export default async function UsersListPage({
 
   return (
     <Grid container spacing={2}>
-      <Grid size={12}>
+      <Grid size={12} display="flex" justifyContent="center">
         <Typography variant="h5" color="primary">
-          Users List
+          <u>Users List</u>
         </Typography>
       </Grid>
       <Grid size={12}>
