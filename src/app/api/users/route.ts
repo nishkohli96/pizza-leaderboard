@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { NextApiResponse } from '@/utils';
 import db from '@/db';
 import { dbTables, dataTableConfig } from '@/constants';
-import { APIResponse, UsersListResponse } from '@/types';
+import { UsersListResponse } from '@/types';
 
 export async function GET(
   request: NextRequest
-): APIResponse<UsersListResponse> {
+) {
   const { searchParams } = request.nextUrl;
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
   const limit = searchParams.get('limit')
@@ -25,9 +26,7 @@ export async function GET(
       .select('id', { count: 'exact' })
       .eq('isDeleted', false);
 
-    return NextResponse.json({
-      success: true,
-      statusCode: 200,
+    return NextApiResponse.success<UsersListResponse>({
       message: 'Users list fethed successfully.',
       data: {
         nbRecords: count ?? 0,
@@ -35,15 +34,11 @@ export async function GET(
         perPage: limit,
         records: data ?? []
       },
-      error: null
     });
-  } catch {
-    return NextResponse.json({
-      success: false,
-      statusCode: 500,
+  } catch(error) {
+    return NextApiResponse.failure({
       message: 'Unable to fetch users list',
-      data: null,
-      error: 'Unable to fetch users list'
+      error
     });
   }
 }

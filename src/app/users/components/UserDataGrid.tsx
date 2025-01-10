@@ -111,13 +111,13 @@ const UserDataGrid = ({
           icon={<RowIcons.PizzaIcon />}
           label="Buy Pizza"
           onClick={() => setOpen(true)}
-        />,  
+        />,
         <GridActionsCellItem
-        key="buyPizza"
-        icon={<RowIcons.LogPizzaIcon />}
-        label="Log Pizza"
-        onClick={() => setOpen(true)}
-      />,
+          key="buyPizza"
+          icon={<RowIcons.LogPizzaIcon />}
+          label="Log Pizza"
+          onClick={() => setOpen(true)}
+        />,
         <GridActionsCellItem
           key="edit"
           icon={<RowIcons.EditIcon />}

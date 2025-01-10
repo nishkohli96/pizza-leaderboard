@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { NextApiResponse } from '@/utils';
 import db from '@/db';
 import { dbTables } from '@/constants';
-import { APIResponse, User } from '@/types';
+import { User } from '@/types';
 
 export async function POST(
   request: NextRequest,
-): APIResponse {
+) {
   try {
     const supabase = await db.connect();
     const user: User = await request.json();
@@ -14,20 +15,13 @@ export async function POST(
       age: Number(user.age)
     });
 
-    return NextResponse.json({
-      success: true,
-      statusCode: 200,
-      message: 'User created successfully.',
-      data: null,
-      error: null
+    return NextApiResponse.success({
+      message: 'User created successfully.'
     });
-  } catch {
-    return NextResponse.json({
-      success: false,
-      statusCode: 500,
+  } catch(error) {
+    return NextApiResponse.failure({
       message: 'Unable to create user.',
-      data: null,
-      error: 'Unable to create user.'
+      error
     });
   }
 }

@@ -1,16 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { NextApiResponse } from '@/utils';
 import db from '@/db';
 import { dbTables } from '@/constants';
-import { APIResponse, Params, User, UserDetails } from '@/types';
+import { Params, User, UserDetails } from '@/types';
 
 type ReqParams = Params<{
   id: string;
 }>;
 
-export async function GET(
-  request: NextRequest,
-  { params }: ReqParams
-): APIResponse<UserDetails> {
+export async function GET(request: NextRequest, { params }: ReqParams) {
   try {
     const userId = (await params).id;
     const supabase = await db.connect();
@@ -20,20 +18,14 @@ export async function GET(
       .eq('id', userId)
       .single();
 
-    return NextResponse.json({
-      success: true,
-      statusCode: 200,
+    return NextApiResponse.success<UserDetails>({
       message: 'User details fetched.',
-      data,
-      error: null
+      data
     });
-  } catch {
-    return NextResponse.json({
-      success: false,
-      statusCode: 500,
+  } catch (error) {
+    return NextApiResponse.failure({
       message: 'Unable to fetch user details.',
-      data: null,
-      error: 'Unable to fetch user details.'
+      error
     });
   }
 }
@@ -41,7 +33,7 @@ export async function GET(
 export async function PATCH(
   request: NextRequest,
   { params }: ReqParams
-): APIResponse {
+) {
   try {
     const userId = (await params).id;
     const userDetails: User = await request.json();
@@ -52,22 +44,15 @@ export async function PATCH(
         ...userDetails,
         updated_at: new Date().toISOString()
       })
-      .eq('id', userId)
+      .eq('id', userId);
 
-    return NextResponse.json({
-      success: true,
-      statusCode: 200,
-      message: 'User details updated.',
-      data: null,
-      error: null
+    return NextApiResponse.success({
+      message: 'User details updated.'
     });
-  } catch {
-    return NextResponse.json({
-      success: false,
-      statusCode: 500,
+  } catch (error) {
+    return NextApiResponse.failure({
       message: 'Unable to update user details.',
-      data: null,
-      error: 'Unable to update user details.'
+      error
     });
   }
 }
@@ -75,7 +60,7 @@ export async function PATCH(
 export async function DELETE(
   request: NextRequest,
   { params }: ReqParams
-): APIResponse {
+) {
   try {
     const userId = (await params).id;
     const supabase = await db.connect();
@@ -84,22 +69,15 @@ export async function DELETE(
       .update({
         isDeleted: true
       })
-      .eq('id', userId)
+      .eq('id', userId);
 
-    return NextResponse.json({
-      success: true,
-      statusCode: 200,
-      message: 'User deleted successfully.',
-      data: null,
-      error: null
+    return NextApiResponse.success({
+      message: 'User deleted successfully.'
     });
-  } catch {
-    return NextResponse.json({
-      success: false,
-      statusCode: 500,
+  } catch (error) {
+    return NextApiResponse.failure({
       message: 'Unable to delete user.',
-      data: null,
-      error: null
+      error
     });
   }
 }

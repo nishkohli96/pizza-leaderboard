@@ -11,36 +11,28 @@
  * export const revalidate = 3600; // Regenerate every hour (3600 seconds)
  */
 
-import { NextResponse } from 'next/server';
+import { NextApiResponse } from '@/utils';
 import db from '@/db';
 import { dbTables } from '@/constants';
-import { APIResponse, PizzaListResponse } from '@/types';
+import { PizzaListResponse } from '@/types';
 
 export const dynamic = 'force-static';
 
-export async function GET(): APIResponse<PizzaListResponse> {
+export async function GET() {
   try {
     const supabase = await db.connect();
-    const { data } = await supabase
-      .from(dbTables.pizza)
-      .select('*');
+    const { data } = await supabase.from(dbTables.pizza).select('*');
 
-    return NextResponse.json({
-      success: true,
-      statusCode: 200,
+    return NextApiResponse.success<PizzaListResponse>({
       message: 'List of pizzas.',
       data: {
         records: data ?? []
-      },
-      error: null
+      }
     });
-  } catch {
-    return NextResponse.json({
-      success: false,
-      statusCode: 500,
+  } catch (error) {
+    return NextApiResponse.failure({
       message: 'Unable to fetch list of pizzas.',
-      data: null,
-      error: 'Unable to fetch list of pizzas.'
+      error
     });
   }
 }
