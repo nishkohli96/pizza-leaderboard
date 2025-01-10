@@ -4,6 +4,8 @@ import db from '@/db';
 import { dbTables, dataTableConfig } from '@/constants';
 import { UsersListResponse } from '@/types';
 
+const defaultPageLimit = dataTableConfig.paginationOptions[0];
+
 export async function GET(
   request: NextRequest
 ) {
@@ -11,7 +13,7 @@ export async function GET(
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
   const limit = searchParams.get('limit')
     ? Number(searchParams.get('limit'))
-    : dataTableConfig.paginationOptions[0];
+    : defaultPageLimit;
   const skip = (page - 1) * limit;
 
   try {
@@ -38,6 +40,12 @@ export async function GET(
   } catch(error) {
     return NextApiResponse.failure({
       message: 'Unable to fetch users list',
+      data: {
+        nbRecords: 0,
+        page: 1,
+        perPage: defaultPageLimit,
+        records: []
+      },
       error
     });
   }

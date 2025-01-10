@@ -12,13 +12,14 @@ interface SuccessResponseOptions<T = null> extends ResponseDetails {
 
 interface ErrorResponseOptions extends ResponseDetails {
   error: unknown | string | null;
+  data?: unknown
 }
 
 class NextApiResponse {
   static success<T = null>({
     message,
+    statusCode = 200,
     data = null,
-    statusCode = 200
   }: SuccessResponseOptions<T>): NextResponse<ResponseBody<T>> {
     const responseBody: ResponseBody<T> = {
       success: true,
@@ -33,14 +34,15 @@ class NextApiResponse {
 
   static failure({
     message,
+    statusCode = 500,
     error = null,
-    statusCode = 500
-  }: ErrorResponseOptions): NextResponse<ResponseBody> {
-    const responseBody: ResponseBody = {
+    data = null
+  }: ErrorResponseOptions): NextResponse<ResponseBody<typeof data>> {
+    const responseBody: ResponseBody<typeof data> = {
       success: false,
       statusCode,
       message,
-      data: null,
+      data,
       error: JSON.stringify(error)
     };
     return NextResponse.json(responseBody, { status: statusCode });
