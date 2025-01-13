@@ -4,16 +4,21 @@ import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import { FullScreenDialog } from '@/components';
-import { Pizza } from '@/types';
-import PizzaDetails from './PizzaDetails';
+import { PizzaDetails } from '@/types';
+import PizzaCard from './PizzaCard';
 
 type PizzaListProps = {
   open: boolean;
   handleClose: () => void;
+  userId: string;
 };
 
-export default function PizzaList({ open, handleClose }: PizzaListProps) {
-  const [pizzas, setPizzas] = useState<Pizza[]>([]);
+export default function PizzaList({
+  open,
+  handleClose,
+  userId
+}: PizzaListProps) {
+  const [pizzas, setPizzas] = useState<PizzaDetails[]>([]);
 
   /**
    * Axios does not respect cached headers, hence for this
@@ -44,7 +49,10 @@ export default function PizzaList({ open, handleClose }: PizzaListProps) {
         <Grid container spacing={2} maxWidth="md">
           {pizzas.map(pizza => (
             <Grid size={12} key={pizza.slug} sx={{ mb: '20px' }}>
-              <PizzaDetails pizza={pizza} />
+              <PizzaCard
+                pizza={pizza}
+                userId={userId}
+              />
             </Grid>
           ))}
         </Grid>

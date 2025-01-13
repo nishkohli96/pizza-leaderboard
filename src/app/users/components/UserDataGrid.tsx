@@ -110,7 +110,10 @@ const UserDataGrid = ({
           key="buyPizza"
           icon={<RowIcons.PizzaIcon />}
           label="Buy Pizza"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setSelectedItemId(params.row.id);
+            setOpen(true);
+          }}
         />,
         <GridActionsCellItem
           key="buyPizza"
@@ -173,7 +176,11 @@ const UserDataGrid = ({
       {open && (
         <PizzaList
           open={open}
-          handleClose={() => setOpen(false)}
+          userId={selectedItemId ?? ''}
+          handleClose={() => {
+            setSelectedItemId(null);
+            setOpen(false);
+          }}
         />
       )}
       {displayDeletePopUp && (

@@ -621,10 +621,10 @@
     globals "^15.13.0"
     typescript-eslint "^8.18.0"
 
-"@nish1896/rhf-mui-components@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@nish1896/rhf-mui-components/-/rhf-mui-components-2.0.0.tgz#0207a4eb271cfb20d95720b5f2ef94018a32dfc5"
-  integrity sha512-r6GVl1uZkLrMzcwOfutqZWf0N5LpwtINozNx4DaNoCIBS/k/pM56IVUxhUW5HNTM6PqsyG6g4kbX70BFncSRlQ==
+"@nish1896/rhf-mui-components@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@nish1896/rhf-mui-components/-/rhf-mui-components-2.0.1.tgz#b770aa2434f3f6d993ee7ef2b98ca006dec81407"
+  integrity sha512-ucGfI45lM1dGfuTygK0Mtyx0tQWcK2L+oTOgmY5GgUtNb4I/ah1sVU/S6H9CZhTf8MQPplPGQxXLIbyRhtQTcg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

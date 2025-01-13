@@ -8,20 +8,15 @@ export async function POST(
   request: NextRequest
 ) {
   try {
-    // return NextResponse.json(
-    // 	generateSuccessPayload(
-    // 		'Order placed successfully.',
-    // 		23,
-    // 	)
-    // )
-    const data = { id: 1, name: 'John Doe' }; // Example payload
+    const orderDetails: Order = await request.json();
+    console.log('orderDetails: ', orderDetails);
     return NextApiResponse.success({
-      message: 'User created successfully',
-      data: 34
+      message: 'Order placed successfully',
+      data: orderDetails
     });
   } catch(error) {
     return NextApiResponse.failure({
-      message: 'User created successfully',
+      message: 'Unable to place order',
       error
     });
 

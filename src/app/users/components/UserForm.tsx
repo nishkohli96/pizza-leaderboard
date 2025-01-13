@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid2';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { RHFTextField, RHFSelect } from '@nish1896/rhf-mui-components/mui';
+import RHFTextField from '@nish1896/rhf-mui-components/mui/textfield';
+import RHFSelect from '@nish1896/rhf-mui-components/mui/select';
 import { User, Gender } from '@/types';
 
 type UserFormProps = {
