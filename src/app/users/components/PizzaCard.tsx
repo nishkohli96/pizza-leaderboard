@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { axiosApi } from '@/axios';
-import { PizzaDetails } from '@/types';
+import { ResponseBody, PizzaDetails } from '@/types';
 import OrderButton from './OrderButton';
 import { RenderCoins } from './RowIcons';
 
@@ -18,10 +19,15 @@ export default function PizzaCard({
   userId,
 }: PizzaCardProps) {
   async function handleOrder(pizzaId: number, userId: string) {
-    const response = await axiosApi.post('/orders/new', {
+    const response = await axiosApi.post<ResponseBody>('/orders/new', {
       pizza_id: pizzaId,
       user_id: userId
     });
+    if(response.data.success) {
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.data.message);
+    }
   }
 
   return (

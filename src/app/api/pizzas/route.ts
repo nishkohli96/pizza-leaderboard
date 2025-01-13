@@ -13,7 +13,7 @@
 
 import { NextApiResponse } from '@/utils';
 import db from '@/db';
-import { dbTables } from '@/constants';
+import { dbTables, messages } from '@/constants';
 import { PizzaListResponse } from '@/types';
 
 export const dynamic = 'force-static';
@@ -24,14 +24,14 @@ export async function GET() {
     const { data } = await supabase.from(dbTables.pizza).select('*');
 
     return NextApiResponse.success<PizzaListResponse>({
-      message: 'List of pizzas.',
+      message: messages.pizza.fetchListSuccess,
       data: {
         records: data ?? []
       }
     });
   } catch (error) {
     return NextApiResponse.failure({
-      message: 'Unable to fetch list of pizzas.',
+      message: messages.pizza.fetchListFail,
       error
     });
   }

@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { NextApiResponse } from '@/utils';
 import db from '@/db';
-import { dbTables } from '@/constants';
+import { dbTables, messages } from '@/constants';
 import { Params, User, UserDetails } from '@/types';
 
 type ReqParams = Params<{
@@ -12,19 +12,27 @@ export async function GET(request: NextRequest, { params }: ReqParams) {
   try {
     const userId = (await params).id;
     const supabase = await db.connect();
-    const { data } = await supabase
+
+    const { data }: { data: UserDetails | null } = await supabase
       .from(dbTables.user)
       .select('*')
       .eq('id', userId)
       .single();
+    if(!data) {
+      return NextApiResponse.failure({
+        statusCode: 400,
+        message: messages.user.notFound,
+        error: null
+      });
+    }
 
     return NextApiResponse.success<UserDetails>({
-      message: 'User details fetched.',
+      message: messages.user.fetchSuccess,
       data
     });
   } catch (error) {
     return NextApiResponse.failure({
-      message: 'Unable to fetch user details.',
+      message: messages.user.fetchFail,
       error
     });
   }

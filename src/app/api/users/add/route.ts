@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { NextApiResponse } from '@/utils';
 import db from '@/db';
-import { dbTables } from '@/constants';
+import { dbTables, messages } from '@/constants';
 import { User } from '@/types';
 
 export async function POST(
@@ -16,11 +16,11 @@ export async function POST(
     });
 
     return NextApiResponse.success({
-      message: 'User created successfully.'
+      message: messages.user.createSuccess,
     });
   } catch(error) {
     return NextApiResponse.failure({
-      message: 'Unable to create user.',
+      message: messages.user.createFail,
       error
     });
   }
