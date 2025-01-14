@@ -96,11 +96,11 @@ export const LoggedPill = () => (
     label="Logged"
     variant='outlined'
     color='success'
-  /> 
-)
+  />
+);
 
 export const EatPizzaIcon = () => (
   <Tooltip title="Eat Pizza">
     <RestaurantMenuIcon fontSize="small" />
   </Tooltip>
-); 
+);

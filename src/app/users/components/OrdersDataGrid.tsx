@@ -12,10 +12,10 @@ import {
 } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 import { axiosApi } from '@/axios';
-import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
-import { Gender, UserRow, ResponseBody, UserOrderDetails } from '@/types';
+import { DataTable, ConfirmationDialog } from '@/components';
+import { ResponseBody, UserOrderDetails } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { OrdersList, RowIcons } from '.';
+import { RowIcons } from '.';
 
 type OrderRowDetails = UserOrderDetails & {
   sNo: number;
@@ -24,44 +24,32 @@ type OrderRowDetails = UserOrderDetails & {
 type OrderDataGridProps = {
   orders: UserOrderDetails[];
   nbRecords: number;
-  // sortColumn?: GridSortItem;
-  // onSortChange: (newSort: GridSortItem) => void;
-  // filterModel?: GridFilterModel;
-  // onFilterChange: (newFilter: GridFilterModel) => void;
   paginationModel: GridPaginationModel;
-  // onPageChange: (newPageModel: GridPaginationModel) => void;
-  // isFetchingData: boolean;
-  // refetchData: () => void;
+  onPageChange: (paginationModel: GridPaginationModel) => void;
 };
 
-const UserDataGrid = ({
+const OrdersDataGrid = ({
   orders,
   nbRecords,
-  // sortColumn,
-  // onSortChange,
-  // filterModel,
-  // onFilterChange,
   paginationModel,
-  // onPageChange,
-  // isFetchingData,
-  // refetchData
+  onPageChange
 }: OrderDataGridProps) => {
-  const router = useRouter();
   const [openPizzaLogPopUp, setOpenPizzaLogPopUp] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
-  const handleCloseDeletePopUp = () => setOpenPizzaLogPopUp(false);
+  const handleClosePopUp = () => setOpenPizzaLogPopUp(false);
 
-  const handlePersonDelete = async () => {
-    const response = await axiosApi.delete<ResponseBody>(
-      `/orders/${selectedItemId}`
+  const handleLogPizza = async () => {
+    const response = await axiosApi.post<ResponseBody>(
+      '/orders/log',
+      { order_id: selectedItemId }
     );
-    const isDeleted = response.data.success;
-    if(isDeleted) {
+    const isLogSuccess = response.data.success;
+    if(isLogSuccess) {
       toast.success(response.data.message);
       setSelectedItemId(null);
     }
-    handleCloseDeletePopUp();
+    handleClosePopUp();
   };
 
   const peopleTableColumns: GridColDef[] = [
@@ -102,17 +90,18 @@ const UserDataGrid = ({
       headerAlign: 'center',
       getActions: (params: GridRowParams) => [
         ...(params.row.isLogged
-          ? [<RowIcons.LoggedPill />]
+          ? [<RowIcons.LoggedPill key="loggedPizza" />]
           : [
-              <GridActionsCellItem
-                key="buyPizza"
-                icon={<RowIcons.EatPizzaIcon />}
-                label="Buy Pizza"
-                onClick={() => {
-                  setSelectedItemId(params.row.id);
-                }}
-              />
-            ])
+            <GridActionsCellItem
+              key="eatPizza"
+              icon={<RowIcons.EatPizzaIcon />}
+              label="Eat Pizza"
+              onClick={() => {
+                setSelectedItemId(params.row.id);
+                setOpenPizzaLogPopUp(true);
+              }}
+            />
+          ])
       ]
     }
   ];
@@ -128,9 +117,11 @@ const UserDataGrid = ({
       pizza_id: order.pizza_id,
       created_at: moment(order.created_at).format('HH:mm - DD MMM YYYY'),
       logged_at: order.logged_at,
-			isLogged: order.isLogged
+      isLogged: order.isLogged
     })
   );
+
+
 
   return (
     <Fragment>
@@ -140,21 +131,16 @@ const UserDataGrid = ({
           flex: 1
         }))}
         rows={ordersTableRows}
-        // isFetchingData={isFetchingData}
         rowCount={nbRecords}
-        // sortColumn={sortColumn}
-        // onSortChange={onSortChange}
-        // filterModel={filterModel}
-        // onFilterChange={onFilterChange}
         paginationModel={paginationModel}
-        // onPageChange={onPageChange}
+        onPageChange={onPageChange}
       />
       {openPizzaLogPopUp && (
         <ConfirmationDialog
           title={`Log Pizza with Order Id ${selectedItemId} ?`}
           open={openPizzaLogPopUp}
-          onClose={handleCloseDeletePopUp}
-          onConfirm={handlePersonDelete}
+          onClose={handleClosePopUp}
+          onConfirm={handleLogPizza}
           confirmBtnText="Confirm"
         />
       )}
@@ -162,4 +148,4 @@ const UserDataGrid = ({
   );
 };
 
-export default UserDataGrid;
+export default OrdersDataGrid;

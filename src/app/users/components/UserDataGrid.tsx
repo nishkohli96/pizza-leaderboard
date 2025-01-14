@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   GridActionsCellItem,
   GridColDef,
@@ -44,6 +44,9 @@ const UserDataGrid = ({
   // refetchData
 }: UserDataGridProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const [openPizzaList, setOpenPizzaList] = useState(false);
   const [openOrdersList, setOpenOrdersList] = useState(false);
   const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
@@ -166,6 +169,15 @@ const UserDataGrid = ({
     })
   );
 
+  function handleOnPageChange(pagination: GridPaginationModel) {
+    const newPage = pagination.page + 1;
+    const limit = pagination.pageSize;
+    const params = new URLSearchParams(searchParams);
+    params.set('page', newPage.toString());
+    params.set('limit', limit.toString());
+    router.replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <Fragment>
       <DataTable
@@ -181,7 +193,7 @@ const UserDataGrid = ({
         // filterModel={filterModel}
         // onFilterChange={onFilterChange}
         paginationModel={paginationModel}
-        // onPageChange={onPageChange}
+        onPageChange={handleOnPageChange}
       />
       {openPizzaList && (
         <PizzaList

@@ -7,20 +7,20 @@ import { PizzaDetails } from '@/types';
 
 type OrderButtonProps = {
   pizza: PizzaDetails;
-	userId: string;
-	handleOrder: (pizzaId: number, userId: string) => void;
+  userId: string;
+  handleOrder: (pizzaId: number, userId: string) => void;
 };
 
 export default function OrderButton({
-	pizza,
-	userId,
-	handleOrder
+  pizza,
+  userId,
+  handleOrder
 }: OrderButtonProps) {
   const [open, setOpen] = useState(false);
 
-	function handleClose() {
+  function handleClose() {
     setOpen(false);
-	}
+  }
   return (
     <>
       <Button
@@ -37,9 +37,9 @@ export default function OrderButton({
         open={open}
         onClose={handleClose}
         onConfirm={() => {
-					handleOrder(pizza.id, userId);
-					handleClose();
-				}}
+          handleOrder(pizza.id, userId);
+          handleClose();
+        }}
       />
     </>
   );

@@ -1,3 +1,5 @@
+import { PaginatedResponse } from '.';
+
 export interface Order {
   user_id: string;
   pizza_id: number;
@@ -16,6 +18,4 @@ export interface LogPizza {
 
 export type UserOrderDetails = Omit<OrderDetails, 'user_id'>;
 
-export type UserOrdersListResponse = {
-  records: UserOrderDetails[];
-};
+export type UserOrdersListResponse = PaginatedResponse<UserOrderDetails>;

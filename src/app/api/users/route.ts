@@ -3,6 +3,7 @@ import { NextApiResponse } from '@/utils';
 import db from '@/db';
 import { dbTables, dataTableConfig, messages } from '@/constants';
 import { UsersListResponse } from '@/types';
+import { getPaginationValues } from '@/utils';
 
 const defaultPageLimit = dataTableConfig.paginationOptions[0];
 
@@ -10,11 +11,10 @@ export async function GET(
   request: NextRequest
 ) {
   const { searchParams } = request.nextUrl;
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
-  const limit = searchParams.get('limit')
-    ? Number(searchParams.get('limit'))
-    : defaultPageLimit;
-  const skip = (page - 1) * limit;
+  const { page, limit, skip } = getPaginationValues(
+    searchParams.get('page'),
+    searchParams.get('limit')
+  );
 
   try {
     const supabase = await db.connect();
@@ -22,6 +22,7 @@ export async function GET(
       .from(dbTables.user)
       .select('id, name, gender, coins')
       .eq('isDeleted', false)
+      .order('coins', { ascending: true })
       .range(skip, skip + limit - 1);
     const { count } = await supabase
       .from(dbTables.user)

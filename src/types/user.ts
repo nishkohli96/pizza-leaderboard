@@ -1,3 +1,5 @@
+import { PaginatedResponse } from '.';
+
 export enum Gender {
   Male = 'MALE',
   Female = 'FEMALE',
@@ -26,9 +28,4 @@ export type UserListQueryParams = {
   perPage?: number;
 }
 
-export type UsersListResponse = {
-  page: number;
-  perPage: number;
-  nbRecords: number;
-  records: UserRow[];
-};
+export type UsersListResponse = PaginatedResponse<UserRow>;

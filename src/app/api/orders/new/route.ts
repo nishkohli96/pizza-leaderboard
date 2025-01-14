@@ -47,12 +47,15 @@ export async function POST(request: NextRequest) {
 
     await supabase
       .from(dbTables.user)
-      .update({ coins: newBalance })
+      .update({
+        coins: newBalance,
+        updated_at: new Date()
+      })
       .eq('id', user_id);
 
     await supabase.from(dbTables.order).insert({
-      user_id: user_id,
-      pizza_id: pizza_id
+      user_id,
+      pizza_id
     });
 
     return NextApiResponse.success({

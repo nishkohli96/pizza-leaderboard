@@ -3,6 +3,7 @@ const dataTableConfig = Object.freeze({
   get defaultPageSize() {
     return this.paginationOptions[0];
   },
+  defaultPage: 1,
   debounceTimeMillis: 300
 });
 
