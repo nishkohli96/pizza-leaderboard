@@ -108,7 +108,7 @@ const UserDataGrid = ({
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key="buyPizza"
-          icon={<RowIcons.PizzaIcon />}
+          icon={<RowIcons.PizzaMenuIcon />}
           label="Buy Pizza"
           onClick={() => {
             setSelectedItemId(params.row.id);
@@ -116,9 +116,15 @@ const UserDataGrid = ({
           }}
         />,
         <GridActionsCellItem
-          key="buyPizza"
+          key="logPizza"
           icon={<RowIcons.LogPizzaIcon />}
           label="Log Pizza"
+          onClick={() => setOpen(true)}
+        />,
+        <GridActionsCellItem
+          key="logPizza"
+          icon={<RowIcons.PizzasLoggedIcon />}
+          label="Logged Pizzas"
           onClick={() => setOpen(true)}
         />,
         <GridActionsCellItem

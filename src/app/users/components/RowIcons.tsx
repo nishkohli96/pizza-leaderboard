@@ -7,6 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import MuiEditIcon from '@mui/icons-material/Edit';
 import MuiDeleteIcon from '@mui/icons-material/Delete';
 import CircleIcon from '@mui/icons-material/Circle';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import { Gender } from '@/types';
@@ -70,14 +71,20 @@ export const RenderCoins = (
   );
 };
 
-export const PizzaIcon = () => (
+export const PizzaMenuIcon = () => (
   <Tooltip title="Buy Pizza">
-    <LocalPizzaIcon fontSize="small" />
+    <MenuBookIcon fontSize="small" />
   </Tooltip>
 );
 
 export const LogPizzaIcon = () => (
   <Tooltip title="Log Pizza">
     <RestaurantMenuIcon fontSize="small" />
+  </Tooltip>
+);
+
+export const PizzasLoggedIcon = () => (
+  <Tooltip title="View Logged Pizzas">
+    <LocalPizzaIcon fontSize="small" />
   </Tooltip>
 );

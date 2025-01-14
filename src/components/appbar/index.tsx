@@ -12,16 +12,15 @@ export default function AppBar() {
       <MuiAppBar position="static">
         <Toolbar>
           <Link href="/" style={{ marginRight: '10px' }}>
-            <Image
-              src="/favicon.ico"
-              alt="Logo"
-              width={40}
-              height={40}
-            />
+            <Image src="/favicon.ico" alt="Logo" width={40} height={40} />
           </Link>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Pizza Game
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Link href="/" passHref>
+              <Typography variant="h6" component="div">
+                Pizza Game
+              </Typography>
+            </Link>
+          </Box>
           <Typography variant="h6" component="div">
             <ThemeChangeButton />
           </Typography>

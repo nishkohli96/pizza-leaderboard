@@ -13,7 +13,6 @@ export interface User {
 export interface UserDetails extends User {
   id: string;
   coins: number;
-  pizzas_logged: number;
   created_at: Date;
   updated_at: Date;
   isDeleted: boolean;

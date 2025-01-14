@@ -46,6 +46,20 @@ export async function PATCH(
     const userId = (await params).id;
     const userDetails: User = await request.json();
     const supabase = await db.connect();
+
+    const { data }: { data: UserDetails | null } = await supabase
+      .from(dbTables.user)
+      .select('*')
+      .eq('id', userId)
+      .single();
+    if(!data) {
+      return NextApiResponse.failure({
+        statusCode: 400,
+        message: messages.user.notFound,
+        error: null
+      });
+    }
+
     await supabase
       .from(dbTables.user)
       .update({
@@ -55,11 +69,11 @@ export async function PATCH(
       .eq('id', userId);
 
     return NextApiResponse.success({
-      message: 'User details updated.'
+      message: messages.user.updateSuccess
     });
   } catch (error) {
     return NextApiResponse.failure({
-      message: 'Unable to update user details.',
+      message: messages.user.updateFail,
       error
     });
   }
@@ -80,11 +94,11 @@ export async function DELETE(
       .eq('id', userId);
 
     return NextApiResponse.success({
-      message: 'User deleted successfully.'
+      message: messages.user.deleteSuccess
     });
   } catch (error) {
     return NextApiResponse.failure({
-      message: 'Unable to delete user.',
+      message: messages.user.deleteFail,
       error
     });
   }
