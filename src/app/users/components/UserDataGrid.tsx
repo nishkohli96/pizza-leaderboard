@@ -14,7 +14,7 @@ import { axiosApi } from '@/axios';
 import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
 import { Gender, UserRow, ResponseBody } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { PizzaList, OrdersList, RowIcons } from '.';
+import { PizzaList, OrdersList, LoggedOrdersList, RowIcons } from '.';
 
 type UserRowDetails = UserRow & { sNo: number };
 
@@ -49,6 +49,7 @@ const UserDataGrid = ({
 
   const [openPizzaList, setOpenPizzaList] = useState(false);
   const [openOrdersList, setOpenOrdersList] = useState(false);
+  const [openLoggedOrdersList, setOpenLoggedOrdersList] = useState(false);
   const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
@@ -132,7 +133,10 @@ const UserDataGrid = ({
           key="logPizza"
           icon={<RowIcons.PizzasLoggedIcon />}
           label="Logged Pizzas"
-          onClick={() => setOpenPizzaList(true)}
+          onClick={() => {
+            setSelectedItemId(params.row.id);
+            setOpenLoggedOrdersList(true);
+          }}
         />,
         <GridActionsCellItem
           key="edit"
@@ -212,6 +216,16 @@ const UserDataGrid = ({
           handleClose={() => {
             setSelectedItemId(null);
             setOpenOrdersList(false);
+          }}
+        />
+      )}
+      {openLoggedOrdersList && (
+        <LoggedOrdersList
+          open={openLoggedOrdersList}
+          userId={selectedItemId ?? ''}
+          handleClose={() => {
+            setSelectedItemId(null);
+            setOpenLoggedOrdersList(false);
           }}
         />
       )}

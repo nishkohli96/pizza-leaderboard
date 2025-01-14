@@ -1,20 +1,15 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import moment from 'moment';
 import {
-  GridActionsCellItem,
   GridColDef,
   GridPaginationModel,
-  GridRowParams,
   GridRowsProp,
 } from '@mui/x-data-grid';
-import { toast } from 'react-toastify';
-import { axiosApi } from '@/axios';
-import { DataTable, ConfirmationDialog } from '@/components';
-import { ResponseBody, UserOrderDetails } from '@/types';
+import { DataTable } from '@/components';
+import { UserOrderDetails } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { RowIcons } from '.';
 
 type OrderRowDetails = UserOrderDetails & {
   sNo: number;
@@ -33,23 +28,6 @@ const OrdersDataGrid = ({
   paginationModel,
   onPageChange
 }: OrderDataGridProps) => {
-  const [openPizzaLogPopUp, setOpenPizzaLogPopUp] = useState<boolean>(false);
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
-
-  const handleClosePopUp = () => setOpenPizzaLogPopUp(false);
-
-  const handleLogPizza = async () => {
-    const response = await axiosApi.post<ResponseBody>(
-      '/orders/log',
-      { order_id: selectedItemId }
-    );
-    const isLogSuccess = response.data.success;
-    if(isLogSuccess) {
-      toast.success(response.data.message);
-      setSelectedItemId(null);
-    }
-    handleClosePopUp();
-  };
 
   const peopleTableColumns: GridColDef[] = [
     {
@@ -83,26 +61,9 @@ const OrdersDataGrid = ({
       headerName: 'Placed At'
     },
     {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      headerAlign: 'center',
-      getActions: (params: GridRowParams) => [
-        ...(params.row.isLogged
-          ? [<RowIcons.LoggedPill key="loggedPizza" />]
-          : [
-            <GridActionsCellItem
-              key="eatPizza"
-              icon={<RowIcons.EatPizzaIcon />}
-              label="Eat Pizza"
-              onClick={() => {
-                setSelectedItemId(params.row.id);
-                setOpenPizzaLogPopUp(true);
-              }}
-            />
-          ])
-      ]
-    }
+      field: 'logged_at',
+      headerName: 'Logged At'
+    },
   ];
 
   const ordersTableRows: GridRowsProp<OrderRowDetails> = orders.map(
@@ -115,7 +76,7 @@ const OrdersDataGrid = ({
       id: order.id,
       pizza_id: order.pizza_id,
       created_at: moment(order.created_at).format('HH:mm - DD MMM YYYY'),
-      logged_at: order.logged_at,
+      logged_at: moment(order.logged_at).format('HH:mm - DD MMM YYYY'),
       isLogged: order.isLogged
     })
   );
@@ -133,15 +94,6 @@ const OrdersDataGrid = ({
         paginationModel={paginationModel}
         onPageChange={onPageChange}
       />
-      {openPizzaLogPopUp && (
-        <ConfirmationDialog
-          title={`Log Pizza with Order Id ${selectedItemId} ?`}
-          open={openPizzaLogPopUp}
-          onClose={handleClosePopUp}
-          onConfirm={handleLogPizza}
-          confirmBtnText="Confirm"
-        />
-      )}
     </Fragment>
   );
 };

@@ -40,14 +40,16 @@ export async function GET(request: NextRequest) {
       .from(dbTables.order)
       .select('id, pizza_id, isLogged, created_at, logged_at')
       .eq('user_id', userId)
+      .eq('isLogged', true)
       .range(skip, skip + limit - 1);
     const { count } = await supabase
       .from(dbTables.order)
       .select('id', { count: 'exact' })
-      .eq('user_id', userId);
+      .eq('user_id', userId)
+      .eq('isLogged', true);
 
     return NextApiResponse.success<UserOrdersListResponse>({
-      message: messages.order.fetchUserSuccess,
+      message: messages.order.fetchLoggedSuccess,
       data: {
         nbRecords: count ?? 0,
         page,
@@ -57,7 +59,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     return NextApiResponse.failure({
-      message: messages.order.fetchUserFail,
+      message: messages.order.fetchLoggedFail,
       error
     });
   }

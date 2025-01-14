@@ -23,9 +23,11 @@ const messages = Object.freeze({
     notPlaced: 'Unable to place order',
     logSuccess: 'Order has been successfully logged',
     logFail: 'Unable to log for this order',
+    missingUserId: 'User Id missing from request',
     fetchUserSuccess: 'Orders fetched for the user',
     fetchUserFail: 'Unable to fetch orders for the user',
-    missingUserId: 'User Id missing from request'
+    fetchLoggedSuccess: 'Logged orders fetched for the user',
+    fetchLoggedFail: 'Unable to fetch logged orders for the user'
   }
 });
 
