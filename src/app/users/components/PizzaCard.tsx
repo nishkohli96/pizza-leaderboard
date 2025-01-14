@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { axiosApi } from '@/axios';
 import { ResponseBody, PizzaDetails } from '@/types';
+import { handleAxiosError } from '@/utils';
 import OrderButton from './OrderButton';
 import { RenderCoins } from './RowIcons';
 
@@ -19,16 +20,16 @@ export default function PizzaCard({
   userId,
 }: PizzaCardProps) {
   async function handleOrder(pizzaId: number, userId: string) {
-    const response = await axiosApi.post<ResponseBody>('/orders/new', {
-      pizza_id: pizzaId,
-      user_id: userId
-    });
-    if(response.data.success) {
+    try {
+      const response = await axiosApi.post<ResponseBody>('/orders/new', {
+        pizza_id: pizzaId,
+        user_id: userId
+      });
       toast.success(response.data.message);
-    } else {
-      toast.error(response.data.message);
+    } catch (error) {
+      handleAxiosError(error);
     }
-  }
+  };
 
   return (
     <Paper sx={{ borderRadius: '8px' }}>
