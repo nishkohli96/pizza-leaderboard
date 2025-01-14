@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -7,6 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import MuiEditIcon from '@mui/icons-material/Edit';
 import MuiDeleteIcon from '@mui/icons-material/Delete';
 import CircleIcon from '@mui/icons-material/Circle';
+import InputIcon from '@mui/icons-material/Input';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
@@ -79,7 +81,7 @@ export const PizzaMenuIcon = () => (
 
 export const LogPizzaIcon = () => (
   <Tooltip title="Log Pizza">
-    <RestaurantMenuIcon fontSize="small" />
+    <InputIcon fontSize="small" />
   </Tooltip>
 );
 
@@ -88,3 +90,17 @@ export const PizzasLoggedIcon = () => (
     <LocalPizzaIcon fontSize="small" />
   </Tooltip>
 );
+
+export const LoggedPill = () => (
+  <Chip
+    label="Logged"
+    variant='outlined'
+    color='success'
+  /> 
+)
+
+export const EatPizzaIcon = () => (
+  <Tooltip title="Eat Pizza">
+    <RestaurantMenuIcon fontSize="small" />
+  </Tooltip>
+); 

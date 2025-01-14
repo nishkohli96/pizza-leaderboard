@@ -5,15 +5,17 @@ export interface Order {
 
 export interface OrderDetails extends Order {
   id: number;
-  created_at: Date;
+  created_at: Date | string;
   isLogged: boolean;
-  logged_at: Date | null;
+  logged_at: Date | string | null;
 }
 
 export interface LogPizza {
   order_id: number;
 }
 
+export type UserOrderDetails = Omit<OrderDetails, 'user_id'>;
+
 export type UserOrdersListResponse = {
-  records: Omit<OrderDetails, 'user_id'>[];
+  records: UserOrderDetails[];
 };

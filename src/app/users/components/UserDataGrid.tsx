@@ -14,7 +14,7 @@ import { axiosApi } from '@/axios';
 import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
 import { Gender, UserRow, ResponseBody } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { PizzaList, RowIcons } from '.';
+import { PizzaList, OrdersList, RowIcons } from '.';
 
 type UserRowDetails = UserRow & { sNo: number };
 
@@ -44,7 +44,8 @@ const UserDataGrid = ({
   // refetchData
 }: UserDataGridProps) => {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [openPizzaList, setOpenPizzaList] = useState(false);
+  const [openOrdersList, setOpenOrdersList] = useState(false);
   const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
@@ -112,20 +113,23 @@ const UserDataGrid = ({
           label="Buy Pizza"
           onClick={() => {
             setSelectedItemId(params.row.id);
-            setOpen(true);
+            setOpenPizzaList(true);
           }}
         />,
         <GridActionsCellItem
           key="logPizza"
           icon={<RowIcons.LogPizzaIcon />}
           label="Log Pizza"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setSelectedItemId(params.row.id);
+            setOpenOrdersList(true);
+          }}
         />,
         <GridActionsCellItem
           key="logPizza"
           icon={<RowIcons.PizzasLoggedIcon />}
           label="Logged Pizzas"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenPizzaList(true)}
         />,
         <GridActionsCellItem
           key="edit"
@@ -179,13 +183,23 @@ const UserDataGrid = ({
         paginationModel={paginationModel}
         // onPageChange={onPageChange}
       />
-      {open && (
+      {openPizzaList && (
         <PizzaList
-          open={open}
+          open={openPizzaList}
           userId={selectedItemId ?? ''}
           handleClose={() => {
             setSelectedItemId(null);
-            setOpen(false);
+            setOpenPizzaList(false);
+          }}
+        />
+      )}
+      {openOrdersList && (
+        <OrdersList
+          open={openOrdersList}
+          userId={selectedItemId ?? ''}
+          handleClose={() => {
+            setSelectedItemId(null);
+            setOpenOrdersList(false);
           }}
         />
       )}
