@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -19,6 +20,7 @@ export default function PizzaCard({
   pizza,
   userId,
 }: PizzaCardProps) {
+  const router = useRouter();
   async function handleOrder(pizzaId: number, userId: string) {
     try {
       const response = await axiosApi.post<ResponseBody>('/orders/new', {
@@ -26,6 +28,7 @@ export default function PizzaCard({
         user_id: userId
       });
       toast.success(response.data.message);
+      router.refresh()
     } catch (error) {
       handleAxiosError(error);
     }

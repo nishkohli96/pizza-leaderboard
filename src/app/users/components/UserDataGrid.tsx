@@ -53,6 +53,7 @@ const UserDataGrid = ({
     if(isDeleted) {
       toast.success(response.data.message);
       setSelectedItemId(null);
+      router.refresh()
     }
     handleCloseDeletePopUp();
   };
@@ -174,7 +175,6 @@ const UserDataGrid = ({
 
   function handleSortChange(newSortCol: GridSortModel) {
     const sortItem = newSortCol[0];
-    console.log('sortItem: ', sortItem);
     const params = new URLSearchParams(searchParams);
     if(sortItem?.field && sortItem?.sort) {
       params.set('sortKey', sortItem.field);

@@ -15,7 +15,12 @@ export async function GET(request: NextRequest) {
     );
 
 		const { data: leaderboard } = await supabase.rpc('leaderboards');
-		console.log('leaderboard: ', leaderboard);
+    const { data, error } = await supabase
+    .rpc('leaderboards2', {
+      perpage: limit, 
+      skip
+    })
+    console.log('le data: ', data);
 		const { data: count } = await supabase.rpc('leaderboards_count');
 
     return NextApiResponse.success<LeaderBoardListResponse>({

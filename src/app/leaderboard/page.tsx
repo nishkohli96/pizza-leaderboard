@@ -23,7 +23,6 @@ export default async function LeaderboardPage({
 	});
 	const leaderboardListData = response.data.data!;
 	const { page, perPage, nbRecords, records } = leaderboardListData;
-	console.log('records: ', records);
 	
   return (
     <Box sx={{ p: '30px 20px' }}>
