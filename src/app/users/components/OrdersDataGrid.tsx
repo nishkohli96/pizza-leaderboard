@@ -24,13 +24,15 @@ type OrderDataGridProps = {
   nbRecords: number;
   paginationModel: GridPaginationModel;
   onPageChange: (paginationModel: GridPaginationModel) => void;
+  refetch: () => void;
 };
 
 const OrdersDataGrid = ({
   orders,
   nbRecords,
   paginationModel,
-  onPageChange
+  onPageChange,
+  refetch
 }: OrderDataGridProps) => {
   const [openPizzaLogPopUp, setOpenPizzaLogPopUp] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
@@ -46,6 +48,7 @@ const OrdersDataGrid = ({
     if(isLogSuccess) {
       toast.success(response.data.message);
       setSelectedItemId(null);
+      refetch();
     }
     handleClosePopUp();
   };

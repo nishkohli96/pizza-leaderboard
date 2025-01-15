@@ -28,11 +28,11 @@ export default function PizzaCard({
         user_id: userId
       });
       toast.success(response.data.message);
-      router.refresh()
+      router.refresh();
     } catch (error) {
       handleAxiosError(error);
     }
-  };
+  }
 
   return (
     <Paper sx={{ borderRadius: '8px' }}>

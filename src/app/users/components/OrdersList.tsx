@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { axiosApi } from '@/axios';
 import { dataTableConfig } from '@/constants';
@@ -25,27 +25,28 @@ export default function OrdersList({
   const [pageSize, setPageSize] = useState(dataTableConfig.defaultPageSize);
   const [currentPage, setCurrentPage] = useState<number>(dataTableConfig.defaultPage);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axiosApi.get<ResponseBody<UserOrdersListResponse>>(
-        '/orders/list',
-        {
-          params: {
-            userId,
-            page: currentPage,
-            limit: pageSize
-          }
+  const fetchOrders = useCallback(async() => {
+    const response = await axiosApi.get<ResponseBody<UserOrdersListResponse>>(
+      '/orders/list',
+      {
+        params: {
+          userId,
+          page: currentPage,
+          limit: pageSize
         }
-      );
-      const ordersData = response.data.data;
-      const orders = ordersData?.records ?? [];
-      setOrdersList(orders);
-      setNbRecords(ordersData?.nbRecords ?? 0);
-      setPageSize(ordersData?.perPage ?? dataTableConfig.defaultPageSize);
-      setCurrentPage(ordersData?.page ?? dataTableConfig.defaultPage);
-    }
-    fetchData();
+      }
+    );
+    const ordersData = response.data.data;
+    const orders = ordersData?.records ?? [];
+    setOrdersList(orders);
+    setNbRecords(ordersData?.nbRecords ?? 0);
+    setPageSize(ordersData?.perPage ?? dataTableConfig.defaultPageSize);
+    setCurrentPage(ordersData?.page ?? dataTableConfig.defaultPage);
   }, [userId, currentPage, pageSize]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   function handleOnPageChange(pagination: GridPaginationModel) {
     const newPage = pagination.page + 1;
@@ -75,6 +76,7 @@ export default function OrdersList({
             pageSize
           }}
           onPageChange={handleOnPageChange}
+          refetch={fetchOrders}
         />
       </Box>
     </FullScreenDialog>

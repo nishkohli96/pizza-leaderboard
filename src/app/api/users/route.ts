@@ -16,7 +16,7 @@ export async function GET(
     searchParams.get('limit')
   );
   const sortColumn = searchParams.get('sortKey') ?? 'coins';
-  const isAsc = searchParams.get('sortOrder') === 'desc' ? false : true;  
+  const isAsc = searchParams.get('sortOrder') === 'desc' ? false : true;
 
   try {
     const supabase = await db.connect();

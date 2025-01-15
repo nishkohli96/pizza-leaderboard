@@ -8,7 +8,7 @@ import {
   GridRowsProp,
 } from '@mui/x-data-grid';
 import { DataTable, RowIcons } from '@/components';
-import { Gender, LeaderboardRecord } from '@/types';
+import { LeaderboardRecord } from '@/types';
 import { getUserRecordIndex } from '@/utils';
 
 type LeaderboardRow = LeaderboardRecord & { sNo: number };
@@ -42,25 +42,25 @@ const LeaderboardDataGrid = ({
       headerName: 'Name',
       hideable: false,
       type: 'string',
-			disableColumnMenu: true,
-			sortable: false,
+      disableColumnMenu: true,
+      sortable: false,
     },
     {
       field: 'coins',
       headerName: 'Wallet Balance',
-			disableColumnMenu: true,
-			sortable: false,
+      disableColumnMenu: true,
+      sortable: false,
       renderCell: params => (
         <RowIcons.RenderCoins coins={params.value} />
       )
     },
-		{
+    {
       field: 'num_orders',
-			disableColumnMenu: true,
-			sortable: false,
-			headerName: 'Pizzas Logged',
+      disableColumnMenu: true,
+      sortable: false,
+      headerName: 'Pizzas Logged',
       type: 'number',
-			align: 'center',
+      align: 'center',
       headerAlign: 'center',
     },
   ];
@@ -75,7 +75,7 @@ const LeaderboardDataGrid = ({
       id: record.id,
       name: record.name,
       coins: record.coins,
-			num_orders: record.num_orders
+      num_orders: record.num_orders
     })
   );
 

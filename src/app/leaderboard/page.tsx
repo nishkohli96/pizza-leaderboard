@@ -15,15 +15,15 @@ export const metadata: Metadata = {
 type GetLeaderboardResponse = ResponseBody<LeaderBoardListResponse>;
 
 export default async function LeaderboardPage({
-	searchParams
+  searchParams
 }: SearchParams<UserListQueryParams>) {
-	const queryParams = await searchParams;
-	const response = await axiosApi.get<GetLeaderboardResponse>('/orders/leaderboard', {
-		params: queryParams
-	});
-	const leaderboardListData = response.data.data!;
-	const { page, perPage, nbRecords, records } = leaderboardListData;
-	
+  const queryParams = await searchParams;
+  const response = await axiosApi.get<GetLeaderboardResponse>('/orders/leaderboard', {
+    params: queryParams
+  });
+  const leaderboardListData = response.data.data!;
+  const { page, perPage, nbRecords, records } = leaderboardListData;
+
   return (
     <Box sx={{ p: '30px 20px' }}>
       <Grid container spacing={2}>
@@ -35,7 +35,7 @@ export default async function LeaderboardPage({
         <Grid size={12}>
           <Container maxWidth="md">
             <LeaderboardDataGrid
-						// @ts-ignore
+              // @ts-ignore
               records={[records]}
               nbRecords={nbRecords}
               paginationModel={{

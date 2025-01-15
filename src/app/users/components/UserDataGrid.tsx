@@ -53,7 +53,7 @@ const UserDataGrid = ({
     if(isDeleted) {
       toast.success(response.data.message);
       setSelectedItemId(null);
-      router.refresh()
+      router.refresh();
     }
     handleCloseDeletePopUp();
   };
