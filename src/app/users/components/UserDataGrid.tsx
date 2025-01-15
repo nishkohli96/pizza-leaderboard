@@ -8,6 +8,8 @@ import {
   GridPaginationModel,
   GridRowParams,
   GridRowsProp,
+  GridSortItem,
+  GridSortModel,
 } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 import { axiosApi } from '@/axios';
@@ -21,27 +23,15 @@ type UserRowDetails = UserRow & { sNo: number };
 type UserDataGridProps = {
   users: UserRow[];
   nbRecords: number;
-  // sortColumn?: GridSortItem;
-  // onSortChange: (newSort: GridSortItem) => void;
-  // filterModel?: GridFilterModel;
-  // onFilterChange: (newFilter: GridFilterModel) => void;
+  sortColumn?: GridSortItem;
   paginationModel: GridPaginationModel;
-  // onPageChange: (newPageModel: GridPaginationModel) => void;
-  // isFetchingData: boolean;
-  // refetchData: () => void;
 };
 
 const UserDataGrid = ({
   users,
   nbRecords,
-  // sortColumn,
-  // onSortChange,
-  // filterModel,
-  // onFilterChange,
+  sortColumn,
   paginationModel,
-  // onPageChange,
-  // isFetchingData,
-  // refetchData
 }: UserDataGridProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -100,6 +90,7 @@ const UserDataGrid = ({
       field: 'coins',
       headerName: 'Wallet Balance',
       disableColumnMenu: true,
+      type: 'number',
       renderCell: params => (
         <RowIcons.RenderCoins coins={params.value} />
       )
@@ -181,6 +172,20 @@ const UserDataGrid = ({
     router.replace(`${pathname}?${params.toString()}`);
   }
 
+  function handleSortChange(newSortCol: GridSortModel) {
+    const sortItem = newSortCol[0];
+    console.log('sortItem: ', sortItem);
+    const params = new URLSearchParams(searchParams);
+    if(sortItem?.field && sortItem?.sort) {
+      params.set('sortKey', sortItem.field);
+      params.set('sortOrder', sortItem.sort);
+    } else {
+      params.delete('sortKey');
+      params.delete('sortOrder');
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <Fragment>
       <DataTable
@@ -189,12 +194,9 @@ const UserDataGrid = ({
           flex: 1
         }))}
         rows={userTableRows}
-        // isFetchingData={isFetchingData}
         rowCount={nbRecords}
-        // sortColumn={sortColumn}
-        // onSortChange={onSortChange}
-        // filterModel={filterModel}
-        // onFilterChange={onFilterChange}
+        sortColumn={sortColumn}
+        onSortChange={handleSortChange}
         paginationModel={paginationModel}
         onPageChange={handleOnPageChange}
       />

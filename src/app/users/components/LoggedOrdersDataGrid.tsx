@@ -34,17 +34,12 @@ const OrdersDataGrid = ({
       field: 'sNo',
       headerName: 'S. No.',
       type: 'number',
-      sortable: false,
-      resizable: false,
       align: 'center',
       headerAlign: 'center',
-      disableColumnMenu: true,
-      filterable: false
     },
     {
       field: 'id',
       headerName: 'Order Id',
-      hideable: false,
       type: 'number',
       align: 'center',
       headerAlign: 'center'
@@ -87,7 +82,9 @@ const OrdersDataGrid = ({
       <DataTable
         columns={peopleTableColumns.map(col => ({
           ...col,
-          flex: 1
+          flex: 1,
+          disableColumnMenu: true,
+          sortable: false
         }))}
         rows={ordersTableRows}
         rowCount={nbRecords}

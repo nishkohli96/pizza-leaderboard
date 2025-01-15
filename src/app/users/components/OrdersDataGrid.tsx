@@ -55,12 +55,8 @@ const OrdersDataGrid = ({
       field: 'sNo',
       headerName: 'S. No.',
       type: 'number',
-      sortable: false,
-      resizable: false,
       align: 'center',
       headerAlign: 'center',
-      disableColumnMenu: true,
-      filterable: false
     },
     {
       field: 'id',
@@ -68,18 +64,18 @@ const OrdersDataGrid = ({
       hideable: false,
       type: 'number',
       align: 'center',
-      headerAlign: 'center'
+      headerAlign: 'center',
     },
     {
       field: 'pizza_id',
       headerName: 'Pizza Id',
       type: 'number',
       align: 'center',
-      headerAlign: 'center'
+      headerAlign: 'center',
     },
     {
       field: 'created_at',
-      headerName: 'Placed At'
+      headerName: 'Placed At',
     },
     {
       field: 'actions',
@@ -125,7 +121,9 @@ const OrdersDataGrid = ({
       <DataTable
         columns={peopleTableColumns.map(col => ({
           ...col,
-          flex: 1
+          flex: 1,
+          disableColumnMenu: true,
+          sortable: false
         }))}
         rows={ordersTableRows}
         rowCount={nbRecords}

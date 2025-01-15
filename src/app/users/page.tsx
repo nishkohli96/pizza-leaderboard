@@ -25,6 +25,7 @@ export default async function UsersListPage({
   const response = await axiosApi.get<GetUsersResponse>('/users', {
     params: queryParams
   });
+
   const usersListData = response.data.data!;
   const { page, perPage, nbRecords, records } = usersListData;
 
@@ -43,6 +44,10 @@ export default async function UsersListPage({
             paginationModel={{
               page: page - 1,
               pageSize: perPage
+            }}
+            sortColumn={{
+              field: queryParams.sortKey ?? 'coins',
+              sort: queryParams.sortOrder ?? 'asc'
             }}
           />
         </Container>

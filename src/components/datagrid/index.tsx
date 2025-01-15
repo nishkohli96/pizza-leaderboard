@@ -4,9 +4,10 @@ import {
   DataGrid,
   GridColDef,
   GridRowsProp,
-  // GridSortModel,
   GridPaginationModel,
   GridFilterModel,
+  GridSortItem,
+  GridSortModel,
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from '@/constants';
@@ -15,12 +16,10 @@ import { CustomNoRowsOverlay, CustomPagination } from './components';
 type DataTableProps = {
   columns: GridColDef[];
   rows: GridRowsProp;
-  // isFetchingData: boolean;
   rowCount: number;
-  // sortColumn?: GridSortItem;
-  // onSortChange: (newSortCol: GridSortItem) => void;
+  sortColumn?: GridSortItem;
+  onSortChange?: (newSortCol: GridSortModel) => void;
   filterModel?: GridFilterModel,
-  // onFilterChange: (newFilter: GridFilterModel) => void;
   paginationModel: GridPaginationModel;
   onPageChange: (model: GridPaginationModel) => void;
 };
@@ -28,20 +27,12 @@ type DataTableProps = {
 export default function DataTable({
   columns,
   rows,
-  // isFetchingData,
   rowCount,
-  // sortColumn,
-  // onSortChange,
-  // filterModel,
-  // onFilterChange,
+  sortColumn,
+  onSortChange,
   paginationModel,
   onPageChange
 }: DataTableProps) {
-
-  // function handleSortChange(newSortModel: GridSortModel) {
-  //   // onSortChange(newSortModel[0]);
-  // }
-
   return (
     <Box
       sx={{
@@ -49,7 +40,6 @@ export default function DataTable({
         width: '100%',
         overflow: 'auto',
         '& .MuiDataGrid-root': {
-          // Prevent squeezing below this width
           minWidth: '500px'
         }
       }}
@@ -58,7 +48,6 @@ export default function DataTable({
         columns={columns}
         rows={rows}
         slots={{
-          // toolbar: GridToolbar,
           noRowsOverlay: CustomNoRowsOverlay,
           pagination: CustomPagination
         }}
@@ -74,13 +63,10 @@ export default function DataTable({
             cursor: 'pointer'
           },
         }}
-        // loading={isFetchingData}
         rowCount={rowCount}
-        // sortModel={sortColumn ? [sortColumn] : undefined}
-        // onSortModelChange={handleSortChange}
+        sortModel={sortColumn ? [sortColumn] : undefined}
+        onSortModelChange={onSortChange}
         filterMode="server"
-        // filterModel={filterModel}
-        // onFilterModelChange={onFilterChange}
         paginationMode="server"
         paginationModel={paginationModel}
         pageSizeOptions={dataTableConfig.paginationOptions}

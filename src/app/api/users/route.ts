@@ -15,6 +15,8 @@ export async function GET(
     searchParams.get('page'),
     searchParams.get('limit')
   );
+  const sortColumn = searchParams.get('sortKey') ?? 'coins';
+  const isAsc = searchParams.get('sortOrder') === 'desc' ? false : true;  
 
   try {
     const supabase = await db.connect();
@@ -22,7 +24,7 @@ export async function GET(
       .from(dbTables.user)
       .select('id, name, gender, coins')
       .eq('isDeleted', false)
-      .order('coins', { ascending: true })
+      .order(sortColumn, { ascending: isAsc })
       .range(skip, skip + limit - 1);
     const { count } = await supabase
       .from(dbTables.user)

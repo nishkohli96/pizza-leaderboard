@@ -26,6 +26,8 @@ export type UserListQueryParams = {
   page?: number;
   limit?: number;
   perPage?: number;
+  sortKey?: string;
+  sortOrder?: 'asc' | 'desc'
 }
 
 export type UsersListResponse = PaginatedResponse<UserRow>;
