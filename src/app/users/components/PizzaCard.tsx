@@ -8,7 +8,7 @@ import { axiosApi } from '@/axios';
 import { ResponseBody, PizzaDetails } from '@/types';
 import { handleAxiosError } from '@/utils';
 import OrderButton from './OrderButton';
-import { RenderCoins } from './RowIcons';
+import { RenderCoins } from '../../../components/row-icons';
 
 type PizzaCardProps = {
   pizza: PizzaDetails;

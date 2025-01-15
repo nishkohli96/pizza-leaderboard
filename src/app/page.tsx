@@ -19,7 +19,7 @@ export default function HomePage() {
         <Button startIcon={<PersonIcon />} href='/users/add'>
           New User
         </Button>
-        <Button startIcon={<LeaderboardIcon />}>
+        <Button startIcon={<LeaderboardIcon />} href="/leaderboard">
           Leaderboard
         </Button>
         <Button startIcon={<ManageAccountsIcon />} href='/users'>

@@ -11,10 +11,9 @@ import {
 } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 import { axiosApi } from '@/axios';
-import { DataTable, ConfirmationDialog } from '@/components';
+import { DataTable, ConfirmationDialog, RowIcons } from '@/components';
 import { ResponseBody, UserOrderDetails } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { RowIcons } from '.';
 
 type OrderRowDetails = UserOrderDetails & {
   sNo: number;

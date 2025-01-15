@@ -11,10 +11,10 @@ import {
 } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 import { axiosApi } from '@/axios';
-import { DataTable, CenterContainer, ConfirmationDialog } from '@/components';
+import { DataTable, CenterContainer, ConfirmationDialog, RowIcons } from '@/components';
 import { Gender, UserRow, ResponseBody } from '@/types';
 import { getUserRecordIndex } from '@/utils';
-import { PizzaList, OrdersList, LoggedOrdersList, RowIcons } from '.';
+import { PizzaList, OrdersList, LoggedOrdersList } from '.';
 
 type UserRowDetails = UserRow & { sNo: number };
 
@@ -72,17 +72,14 @@ const UserDataGrid = ({
       field: 'sNo',
       headerName: 'S. No.',
       type: 'number',
-      sortable: false,
-      resizable: false,
       align: 'center',
       headerAlign: 'center',
       disableColumnMenu: true,
-      filterable: false,
     },
     {
       field: 'name',
       headerName: 'Name',
-      hideable: false,
+      disableColumnMenu: true,
       type: 'string',
     },
     {
@@ -91,6 +88,7 @@ const UserDataGrid = ({
       align: 'center',
       headerAlign: 'center',
       type: 'singleSelect',
+      disableColumnMenu: true,
       valueOptions: Object.values(Gender),
       renderCell: params => (
         <CenterContainer>
@@ -100,7 +98,8 @@ const UserDataGrid = ({
     },
     {
       field: 'coins',
-      headerName: 'Wallet',
+      headerName: 'Wallet Balance',
+      disableColumnMenu: true,
       renderCell: params => (
         <RowIcons.RenderCoins coins={params.value} />
       )
