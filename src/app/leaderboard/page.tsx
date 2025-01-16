@@ -18,7 +18,7 @@ export default async function LeaderboardPage({
   searchParams
 }: SearchParams<UserListQueryParams>) {
   const queryParams = await searchParams;
-  const response = await axiosApi.get<GetLeaderboardResponse>('/orders/leaderboard', {
+  const response = await axiosApi.get<GetLeaderboardResponse>('/leaderboard', {
     params: queryParams
   });
   const leaderboardListData = response.data.data!;
@@ -35,8 +35,7 @@ export default async function LeaderboardPage({
         <Grid size={12}>
           <Container maxWidth="md">
             <LeaderboardDataGrid
-              // @ts-ignore
-              records={[records]}
+              records={records}
               nbRecords={nbRecords}
               paginationModel={{
                 page: page - 1,

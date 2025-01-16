@@ -14,27 +14,26 @@ export async function GET(request: NextRequest) {
       searchParams.get('limit')
     );
 
-    const { data: leaderboard } = await supabase.rpc('leaderboards');
     const { data } = await supabase
-      .rpc('leaderboards2', {
-        perpage: limit,
+      .rpc('getLeaderboard', {
+        perPage: limit,
         skip
       });
-    console.log('le data: ', data);
+    console.log('data: ', data);
     const { data: count } = await supabase.rpc('leaderboards_count');
 
     return NextApiResponse.success<LeaderBoardListResponse>({
-      message: messages.order.fetchUserSuccess,
+      message: messages.leaderboard.fetchSuccess,
       data: {
         nbRecords: count ?? 10,
         page,
         perPage: limit,
-        records: leaderboard ?? []
+        records: data ?? []
       }
     });
   } catch (error) {
     return NextApiResponse.failure({
-      message: messages.order.fetchUserFail,
+      message: messages.leaderboard.fetchFail,
       error
     });
   }

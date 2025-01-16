@@ -28,6 +28,10 @@ const messages = Object.freeze({
     fetchUserFail: 'Unable to fetch orders for the user',
     fetchLoggedSuccess: 'Logged orders fetched for the user',
     fetchLoggedFail: 'Unable to fetch logged orders for the user'
+  },
+  leaderboard: {
+    fetchSuccess: 'Leaderboard records fetcthed',
+    fetchFail: 'Unable to fetch leaderboard records',
   }
 });
 
