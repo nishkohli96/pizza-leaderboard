@@ -3,16 +3,12 @@ import { Metadata } from 'next';
 import Grid from '@mui/material/Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { TableSkeleton } from '@/components'; 
+import { TableSkeleton } from '@/components';
 import {
-  ResponseBody,
   SearchParams,
   UserListQueryParams,
-  UsersListResponse,
 } from '@/types';
 import { UsersPage } from './components';
-
-type GetUsersResponse = ResponseBody<UsersListResponse>;
 
 export const metadata: Metadata = {
   title: 'Users List',

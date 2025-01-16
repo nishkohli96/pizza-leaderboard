@@ -20,6 +20,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Database
 
-Mock data is generated using [Mockaroo](https://www.mockaroo.com/) and the csv files of seeded data in the db can be found in [src/db/data](./src/db/data/) directory.
+Mock data is generated using [Mockaroo](https://www.mockaroo.com/) and the csv files of seeded data along with the table relationship in the db can be found in [src/db](./src/db/) directory.
 
 

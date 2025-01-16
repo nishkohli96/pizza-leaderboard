@@ -26,10 +26,14 @@ export default async function UsersPage({
         page: page - 1,
         pageSize: perPage
       }}
-      sortColumn={(queryParams.sortKey && queryParams.sortOrder) ? {
-        field: queryParams.sortKey,
-        sort: queryParams.sortOrder
-      }: undefined}
+      sortColumn={
+        queryParams.sortKey && queryParams.sortOrder
+          ? {
+              field: queryParams.sortKey,
+              sort: queryParams.sortOrder
+            }
+          : undefined
+      }
     />
   );
 }
