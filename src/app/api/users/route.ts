@@ -15,7 +15,7 @@ export async function GET(
     searchParams.get('page'),
     searchParams.get('limit')
   );
-  const sortColumn = searchParams.get('sortKey') ?? 'createdAt';
+  const sortColumn = searchParams.get('sortKey') ?? 'created_at';
   const isAsc = searchParams.get('sortOrder') === 'desc' ? false : true;
 
   try {

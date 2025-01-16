@@ -92,6 +92,7 @@ const UserDataGrid = ({
       headerName: 'Wallet Balance',
       disableColumnMenu: true,
       type: 'number',
+      headerAlign: 'left',
       renderCell: params => (
         <RowIcons.RenderCoins coins={params.value} />
       )
