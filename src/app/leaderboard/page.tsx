@@ -1,29 +1,25 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { axiosApi } from '@/axios';
-import { LeaderBoardListResponse, ResponseBody, SearchParams, UserListQueryParams } from '@/types';
-import { LeaderboardDataGrid } from './components';
+import { TableSkeleton } from '@/components';
+import {
+  SearchParams,
+  UserListQueryParams
+} from '@/types';
+import { Leaderboard } from './components';
 
 export const metadata: Metadata = {
   title: 'Leaderboards',
   description: 'Users logged in most pizzas listed at the top'
 };
 
-type GetLeaderboardResponse = ResponseBody<LeaderBoardListResponse>;
-
 export default async function LeaderboardPage({
   searchParams
 }: SearchParams<UserListQueryParams>) {
   const queryParams = await searchParams;
-  const response = await axiosApi.get<GetLeaderboardResponse>('/leaderboard', {
-    params: queryParams
-  });
-  const leaderboardListData = response.data.data!;
-  const { page, perPage, nbRecords, records } = leaderboardListData;
-
   return (
     <Box sx={{ p: '30px 20px' }}>
       <Grid container spacing={2}>
@@ -34,14 +30,9 @@ export default async function LeaderboardPage({
         </Grid>
         <Grid size={12}>
           <Container maxWidth="md">
-            <LeaderboardDataGrid
-              records={records}
-              nbRecords={nbRecords}
-              paginationModel={{
-                page: page - 1,
-                pageSize: perPage
-              }}
-            />
+            <Suspense fallback={<TableSkeleton />}>
+              <Leaderboard queryParams={queryParams} />
+            </Suspense>
           </Container>
         </Grid>
       </Grid>
