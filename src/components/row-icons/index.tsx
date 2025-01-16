@@ -86,7 +86,7 @@ export const LogPizzaIcon = () => (
 );
 
 export const PizzasLoggedIcon = () => (
-  <Tooltip title="View Logged Pizzas">
+  <Tooltip title="Pizza History">
     <LocalPizzaIcon fontSize="small" />
   </Tooltip>
 );

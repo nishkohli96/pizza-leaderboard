@@ -20,13 +20,15 @@ type OrderDataGridProps = {
   nbRecords: number;
   paginationModel: GridPaginationModel;
   onPageChange: (paginationModel: GridPaginationModel) => void;
+  loading: boolean;
 };
 
 const OrdersDataGrid = ({
   orders,
   nbRecords,
   paginationModel,
-  onPageChange
+  onPageChange,
+  loading
 }: OrderDataGridProps) => {
 
   const peopleTableColumns: GridColDef[] = [
@@ -90,6 +92,7 @@ const OrdersDataGrid = ({
         rowCount={nbRecords}
         paginationModel={paginationModel}
         onPageChange={onPageChange}
+        loading={loading}
       />
     </Fragment>
   );

@@ -20,12 +20,14 @@ export default function OrdersList({
   handleClose,
   userId
 }: OrdersListProps) {
+  const [loading, setLoading] = useState(false);
   const [ordersList, setOrdersList] = useState<UserOrderDetails[]>([]);
   const [nbRecords, setNbRecords] = useState(0);
   const [pageSize, setPageSize] = useState(dataTableConfig.defaultPageSize);
   const [currentPage, setCurrentPage] = useState<number>(dataTableConfig.defaultPage);
 
   const fetchOrders = useCallback(async() => {
+    setLoading(true);
     const response = await axiosApi.get<ResponseBody<UserOrdersListResponse>>(
       '/orders/list',
       {
@@ -42,6 +44,7 @@ export default function OrdersList({
     setNbRecords(ordersData?.nbRecords ?? 0);
     setPageSize(ordersData?.perPage ?? dataTableConfig.defaultPageSize);
     setCurrentPage(ordersData?.page ?? dataTableConfig.defaultPage);
+    setLoading(false);
   }, [userId, currentPage, pageSize]);
 
   useEffect(() => {
@@ -77,6 +80,7 @@ export default function OrdersList({
           }}
           onPageChange={handleOnPageChange}
           refetch={fetchOrders}
+          loading={loading}
         />
       </Box>
     </FullScreenDialog>

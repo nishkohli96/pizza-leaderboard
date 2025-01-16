@@ -25,6 +25,7 @@ type OrderDataGridProps = {
   paginationModel: GridPaginationModel;
   onPageChange: (paginationModel: GridPaginationModel) => void;
   refetch: () => void;
+  loading: boolean;
 };
 
 const OrdersDataGrid = ({
@@ -32,7 +33,8 @@ const OrdersDataGrid = ({
   nbRecords,
   paginationModel,
   onPageChange,
-  refetch
+  refetch,
+  loading
 }: OrderDataGridProps) => {
   const [openPizzaLogPopUp, setOpenPizzaLogPopUp] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
@@ -132,6 +134,7 @@ const OrdersDataGrid = ({
         rowCount={nbRecords}
         paginationModel={paginationModel}
         onPageChange={onPageChange}
+        loading={loading}
       />
       {openPizzaLogPopUp && (
         <ConfirmationDialog

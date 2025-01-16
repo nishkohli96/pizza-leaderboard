@@ -22,6 +22,7 @@ type DataTableProps = {
   filterModel?: GridFilterModel,
   paginationModel: GridPaginationModel;
   onPageChange: (model: GridPaginationModel) => void;
+  loading?: boolean;
 };
 
 export default function DataTable({
@@ -31,7 +32,8 @@ export default function DataTable({
   sortColumn,
   onSortChange,
   paginationModel,
-  onPageChange
+  onPageChange,
+  loading
 }: DataTableProps) {
   return (
     <Box
@@ -72,6 +74,7 @@ export default function DataTable({
         pageSizeOptions={dataTableConfig.paginationOptions}
         onPaginationModelChange={onPageChange}
         disableRowSelectionOnClick
+        loading={loading}
       />
     </Box>
   );

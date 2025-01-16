@@ -20,6 +20,7 @@ export default function LoggedOrdersList({
   handleClose,
   userId
 }: OrdersListProps) {
+  const [loading, setLoading] = useState(false);
   const [ordersList, setOrdersList] = useState<UserOrderDetails[]>([]);
   const [nbRecords, setNbRecords] = useState(0);
   const [pageSize, setPageSize] = useState(dataTableConfig.defaultPageSize);
@@ -27,6 +28,7 @@ export default function LoggedOrdersList({
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const response = await axiosApi.get<ResponseBody<UserOrdersListResponse>>(
         '/orders/logged',
         {
@@ -43,6 +45,7 @@ export default function LoggedOrdersList({
       setNbRecords(ordersData?.nbRecords ?? 0);
       setPageSize(ordersData?.perPage ?? dataTableConfig.defaultPageSize);
       setCurrentPage(ordersData?.page ?? dataTableConfig.defaultPage);
+      setLoading(false);
     }
     fetchData();
   }, [userId, currentPage, pageSize]);
@@ -75,6 +78,7 @@ export default function LoggedOrdersList({
             pageSize
           }}
           onPageChange={handleOnPageChange}
+          loading={loading}
         />
       </Box>
     </FullScreenDialog>
