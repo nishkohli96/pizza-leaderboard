@@ -14,18 +14,16 @@ export async function GET(request: NextRequest) {
       searchParams.get('limit')
     );
 
-    const { data } = await supabase
-      .rpc('getLeaderboard', {
-        perPage: limit,
-        skip
-      });
-    console.log('data: ', data);
+    const { data } = await supabase.rpc('getleaderboard', {
+      perpage: limit,
+      skip
+    });
     const { data: count } = await supabase.rpc('leaderboards_count');
 
     return NextApiResponse.success<LeaderBoardListResponse>({
       message: messages.leaderboard.fetchSuccess,
       data: {
-        nbRecords: count ?? 10,
+        nbRecords: count ?? 0,
         page,
         perPage: limit,
         records: data ?? []
